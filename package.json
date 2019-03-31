@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "keywords": [],
+  "private": true,
   "main": "dist/toy-engine.umd.js",
   "module": "dist/toy-engine.es5.js",
   "typings": "dist/types/toy-engine.d.ts",
