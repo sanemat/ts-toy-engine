@@ -121,5 +121,8 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "dependencies": {
+    "pngjs": "^3.4.0"
   }
 }
