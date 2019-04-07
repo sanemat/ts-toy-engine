@@ -73,8 +73,7 @@
       "src/*.{js,ts}"
     ]
   },
-  "prettier": {
-  },
+  "prettier": {},
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
