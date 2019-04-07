@@ -8,7 +8,7 @@ test("canvas pixels length", () => {
 
 test("canvas is filled by white", () => {
   const canvas = Canvas.Create(2, 3);
-  const white = new Color(255, 255, 255, 255);
+  const white = new Color(255, 255, 255, 1);
 
   expect(canvas.pixels).toEqual([white, white, white, white, white, white]);
 });
