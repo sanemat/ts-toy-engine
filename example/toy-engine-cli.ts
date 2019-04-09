@@ -13,7 +13,7 @@ const canvas = new Canvas(
 );
 
 // tslint:disable-next-line:no-unused-expression
-new Jimp(canvas.width, canvas.height, (err, image) => {
+new Jimp(canvas.width, canvas.height, (err: any, image: any) => {
   if (err) {
     console.error(err);
     return;
@@ -26,7 +26,7 @@ new Jimp(canvas.width, canvas.height, (err, image) => {
     buffer[i * 4 + 2] = canvas.pixels[i].b;
     buffer[i * 4 + 3] = canvas.pixels[i].a;
   }
-  image.getBufferAsync(Jimp.MIME_PNG).then(value => {
+  image.getBufferAsync(Jimp.MIME_PNG).then((value: any) => {
     process.stdout.write(value);
   });
 });
