@@ -1,6 +1,6 @@
 // node_modules/.bin/ts-node example/toy-engine-cli.ts | display
 
-import Jimp = require("jimp");
+const Jimp = require("jimp");
 import { Canvas } from "../src/painting";
 import { Color } from "../src/css";
 const white = new Color(255, 255, 255, 255);
