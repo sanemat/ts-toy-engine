@@ -73,8 +73,7 @@
       "src/*.{js,ts}"
     ]
   },
-  "prettier": {
-  },
+  "prettier": {},
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
@@ -122,6 +121,6 @@
     }
   },
   "dependencies": {
-    "pngjs": "^3.4.0"
+    "jimp": "^0.6.1"
   }
 }
