@@ -12,7 +12,7 @@ export class Canvas {
   }
 
   static Create(width: number, height: number): Canvas {
-    const white = new Color(255, 255, 255, 1);
+    const white = new Color(255, 255, 255, 255);
     return new Canvas(new Array(width * height).fill(white), width, height);
   }
 }
