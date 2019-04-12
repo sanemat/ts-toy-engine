@@ -25,3 +25,17 @@ export class EdgeSizes {
     this.bottom = bottom;
   }
 }
+
+export class Dimensions {
+  content: Rect;
+  padding: EdgeSizes;
+  border: EdgeSizes;
+  margin: EdgeSizes;
+
+  constructor(content: Rect, padding: EdgeSizes, border: EdgeSizes, margin: EdgeSizes) {
+    this.content = content;
+    this.padding = padding;
+    this.border = border;
+    this.margin = margin;
+  }
+}
