@@ -1,9 +1,9 @@
 import { Color } from "./css";
 
 export class Canvas {
-  pixels: Array<Color> = [];
-  width: number = 0;
-  height: number = 0;
+  pixels: Array<Color>;
+  width: number;
+  height: number;
 
   constructor(pixels: Array<Color>, width: number, height: number) {
     this.pixels = pixels;
