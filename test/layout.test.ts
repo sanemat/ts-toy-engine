@@ -1,13 +1,4 @@
-import {
-  AnonymousBlock,
-  BlockNode,
-  BoxTypeFormat,
-  Dimensions,
-  EdgeSizes,
-  InlineNode,
-  LayoutBox,
-  Rect
-} from "../src/layout";
+import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
 import { Node } from "../src/dom";
 import { Keyword } from "../src/css";
@@ -29,15 +20,15 @@ test("dimensions", () => {
 const oneStyledNode = new StyledNode(new Node(), new Map([["key", new Keyword("hoge")]]), []);
 
 test("block node", () => {
-  expect(new BlockNode(oneStyledNode).format).toEqual(BoxTypeFormat.BlockNode);
+  expect(new BoxType.BlockNode(oneStyledNode).format).toEqual(BoxType.Format.BlockNode);
 });
 
 test("inline node", () => {
-  expect(new InlineNode(oneStyledNode).format).toEqual(BoxTypeFormat.InlineNode);
+  expect(new BoxType.InlineNode(oneStyledNode).format).toEqual(BoxType.Format.InlineNode);
 });
 
 test("anonymous block", () => {
-  expect(new AnonymousBlock().format).toEqual(BoxTypeFormat.AnonymousBlock);
+  expect(new BoxType.AnonymousBlock().format).toEqual(BoxType.Format.AnonymousBlock);
 });
 
 test("layout box", () => {
@@ -49,7 +40,7 @@ test("layout box", () => {
         new EdgeSizes(0, 0, 0, 0),
         new EdgeSizes(0, 0, 0, 0)
       ),
-      new AnonymousBlock(),
+      new BoxType.AnonymousBlock(),
       []
     ).children
   ).toEqual([]);
