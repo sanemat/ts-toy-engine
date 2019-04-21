@@ -16,7 +16,7 @@ export enum Unit {
   Px
 }
 
-export namespace Value {
+export namespace CssValue {
   export enum Format {
     Keyword,
     Length,
@@ -50,4 +50,4 @@ export namespace Value {
   }
 }
 
-export type Value = Value.Keyword | Value.Length | Value.ColorValue;
+export type CssValue = CssValue.Keyword | CssValue.Length | CssValue.ColorValue;
