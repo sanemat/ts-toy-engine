@@ -9,7 +9,7 @@ import { Color } from "../src/css";
 const black = new Color(0, 0, 0, 255);
 
 const canvas = Canvas.Create(200, 100);
-canvas.paintItem(new DisplayCommand.SolidColor(black, new Rect(0, 0, 10, 10)));
+canvas.paintItem(new DisplayCommand.SolidColor(black, new Rect(10, 20, 30, 30)));
 
 // tslint:disable-next-line:no-unused-expression
 new Jimp(canvas.width, canvas.height, (err: any, image: any) => {
