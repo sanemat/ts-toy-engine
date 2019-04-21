@@ -42,33 +42,35 @@ export class Dimensions {
   }
 }
 
-export enum BoxTypeFormat {
-  BlockNode,
-  InlineNode,
-  AnonymousBlock
-}
+export namespace BoxType {
+  export enum Format {
+    BlockNode,
+    InlineNode,
+    AnonymousBlock
+  }
 
-export class BlockNode {
-  readonly format = BoxTypeFormat.BlockNode;
-  styledNode: StyledNode;
-  constructor(styledNode: StyledNode) {
-    this.styledNode = styledNode;
+  export class BlockNode {
+    readonly format = Format.BlockNode;
+    styledNode: StyledNode;
+    constructor(styledNode: StyledNode) {
+      this.styledNode = styledNode;
+    }
+  }
+
+  export class InlineNode {
+    readonly format = Format.InlineNode;
+    styledNode: StyledNode;
+    constructor(styledNode: StyledNode) {
+      this.styledNode = styledNode;
+    }
+  }
+
+  export class AnonymousBlock {
+    readonly format = Format.AnonymousBlock;
   }
 }
 
-export class InlineNode {
-  readonly format = BoxTypeFormat.InlineNode;
-  styledNode: StyledNode;
-  constructor(styledNode: StyledNode) {
-    this.styledNode = styledNode;
-  }
-}
-
-export class AnonymousBlock {
-  readonly format = BoxTypeFormat.AnonymousBlock;
-}
-
-export type BoxType = BlockNode | InlineNode | AnonymousBlock;
+export type BoxType = BoxType.BlockNode | BoxType.InlineNode | BoxType.AnonymousBlock;
 
 export class LayoutBox {
   dimensions: Dimensions;
