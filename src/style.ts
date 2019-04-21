@@ -1,7 +1,7 @@
 import { DomNode } from "./dom";
-import { Value } from "./css";
+import { CssValue } from "./css";
 
-type PropertyMap = Map<string, Value>;
+type PropertyMap = Map<string, CssValue>;
 
 export class StyledNode {
   node: DomNode;
