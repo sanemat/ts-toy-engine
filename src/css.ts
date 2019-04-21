@@ -16,36 +16,38 @@ export enum Unit {
   Px
 }
 
-export enum ValueFormat {
-  Keyword,
-  Length,
-  ColorValue
-}
+export namespace Value {
+  export enum Format {
+    Keyword,
+    Length,
+    ColorValue
+  }
 
-export class Keyword {
-  readonly format = ValueFormat.Keyword;
-  keyword: string;
-  constructor(keyword: string) {
-    this.keyword = keyword;
+  export class Keyword {
+    readonly format = Format.Keyword;
+    keyword: string;
+    constructor(keyword: string) {
+      this.keyword = keyword;
+    }
+  }
+
+  export class Length {
+    readonly format = Format.Length;
+    length: number;
+    unit: Unit;
+    constructor(length: number, unit: Unit) {
+      this.length = length;
+      this.unit = unit;
+    }
+  }
+
+  export class ColorValue {
+    readonly format = Format.ColorValue;
+    colorValue: Color;
+    constructor(colorValue: Color) {
+      this.colorValue = colorValue;
+    }
   }
 }
 
-export class Length {
-  readonly format = ValueFormat.Length;
-  length: number;
-  unit: Unit;
-  constructor(length: number, unit: Unit) {
-    this.length = length;
-    this.unit = unit;
-  }
-}
-
-export class ColorValue {
-  readonly format = ValueFormat.ColorValue;
-  colorValue: Color;
-  constructor(colorValue: Color) {
-    this.colorValue = colorValue;
-  }
-}
-
-export type Value = Keyword | Length | ColorValue;
+export type Value = Value.Keyword | Value.Length | Value.ColorValue;
