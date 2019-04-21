@@ -13,7 +13,7 @@ const canvas = new Canvas(
   10
 );
 
-Jimp.read(canvas.width, canvas.height)
+Jimp.create(canvas.width, canvas.height)
   .then((value: Jimp) => {
     let buffer = value.bitmap.data;
     for (let i = 0; i < canvas.pixels.length; i++) {
