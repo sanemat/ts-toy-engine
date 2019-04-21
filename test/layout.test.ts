@@ -1,6 +1,6 @@
 import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
-import { Node } from "../src/dom";
+import { DomNode } from "../src/dom";
 import { Value } from "../src/css";
 
 test("rect", () => {
@@ -17,7 +17,11 @@ test("dimensions", () => {
   expect(new Dimensions(target, edge, edge, edge).content).toEqual(target);
 });
 
-const oneStyledNode = new StyledNode(new Node(), new Map([["key", new Value.Keyword("hoge")]]), []);
+const oneStyledNode = new StyledNode(
+  new DomNode(),
+  new Map([["key", new Value.Keyword("hoge")]]),
+  []
+);
 
 test("block node", () => {
   expect(new BoxType.BlockNode(oneStyledNode).format).toEqual(BoxType.Format.BlockNode);

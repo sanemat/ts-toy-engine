@@ -1,1 +1,1 @@
-export class Node {}
+export class DomNode {}

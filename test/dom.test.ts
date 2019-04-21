@@ -1,4 +1,4 @@
-import { Node } from "../src/dom";
+import { DomNode } from "../src/dom";
 test("node", () => {
-  expect(() => new Node()).not.toThrow();
+  expect(() => new DomNode()).not.toThrow();
 });
