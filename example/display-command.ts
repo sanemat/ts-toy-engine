@@ -11,7 +11,7 @@ const black = new Color(0, 0, 0, 255);
 const canvas = Canvas.Create(200, 100);
 canvas.paintItem(new DisplayCommand.SolidColor(black, new Rect(10, 20, 30, 30)));
 
-Jimp.read(canvas.width, canvas.height)
+Jimp.create(canvas.width, canvas.height)
   .then((value: Jimp) => {
     let buffer = value.bitmap.data;
     for (let i = 0; i < canvas.pixels.length; i++) {
