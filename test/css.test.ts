@@ -1,20 +1,20 @@
-import { Color, ColorValue, Keyword, Length, Unit, Value, ValueFormat } from "../src/css";
+import { Color, Unit, Value } from "../src/css";
 
 test("a", () => {
   expect(new Color(0, 0, 0, 255).a).toEqual(255);
 });
 
 test("keyword foo", () => {
-  expect(new Keyword("foo").keyword).toEqual("foo");
+  expect(new Value.Keyword("foo").keyword).toEqual("foo");
 });
 
 const switchFunction = (v: Value) => {
   switch (v.format) {
-    case ValueFormat.Length:
+    case Value.Format.Length:
       return "length";
-    case ValueFormat.ColorValue:
+    case Value.Format.ColorValue:
       return "colorValue";
-    case ValueFormat.Keyword:
+    case Value.Format.Keyword:
       return "keyword";
     default:
       return "default";
@@ -22,15 +22,15 @@ const switchFunction = (v: Value) => {
 };
 
 test("pattern keyword", () => {
-  const keyword = new Keyword("foo");
+  const keyword = new Value.Keyword("foo");
   expect(switchFunction(keyword)).toEqual("keyword");
 });
 
 test("length 6", () => {
-  expect(new Length(6, Unit.Px).length).toEqual(6);
+  expect(new Value.Length(6, Unit.Px).length).toEqual(6);
 });
 
 test("color white", () => {
   const white = new Color(255, 255, 255, 255);
-  expect(new ColorValue(white).colorValue).toEqual(white);
+  expect(new Value.ColorValue(white).colorValue).toEqual(white);
 });
