@@ -1,4 +1,4 @@
-import { Canvas, DisplayCommandFormat, SolidColor } from "../src/painting";
+import { Canvas, DisplayCommand } from "../src/painting";
 import { Color } from "../src/css";
 import { Rect } from "../src/layout";
 
@@ -16,13 +16,13 @@ test("canvas is filled by white", () => {
 });
 
 test("solid color", () => {
-  expect(new SolidColor(white, new Rect(0, 0, 0, 0)).format).toEqual(
-    DisplayCommandFormat.SolidColor
+  expect(new DisplayCommand.SolidColor(white, new Rect(0, 0, 0, 0)).format).toEqual(
+    DisplayCommand.Format.SolidColor
   );
 });
 
 test("canvas paint item", () => {
   const canvas = Canvas.Create(2, 3);
-  canvas.paintItem(new SolidColor(black, new Rect(0, 0, 0, 0)));
+  canvas.paintItem(new DisplayCommand.SolidColor(black, new Rect(0, 0, 0, 0)));
   expect(canvas.pixels).toEqual([black, white, white, white, white, white]);
 });

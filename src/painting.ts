@@ -20,7 +20,7 @@ export class Canvas {
 
   paintItem(item: DisplayCommand) {
     switch (item.format) {
-      case DisplayCommandFormat.SolidColor:
+      case DisplayCommand.Format.SolidColor:
         const rect = item.rect;
         const color = item.color;
         let x0 = mathClamp(rect.x, 0.0, this.width);
@@ -37,19 +37,21 @@ export class Canvas {
   }
 }
 
-export enum DisplayCommandFormat {
-  SolidColor
-}
+export namespace DisplayCommand {
+  export enum Format {
+    SolidColor
+  }
 
-export class SolidColor {
-  readonly format = DisplayCommandFormat.SolidColor;
-  color: Color;
-  rect: Rect;
-  constructor(color: Color, rect: Rect) {
-    this.color = color;
-    this.rect = rect;
+  export class SolidColor {
+    readonly format = Format.SolidColor;
+    color: Color;
+    rect: Rect;
+    constructor(color: Color, rect: Rect) {
+      this.color = color;
+      this.rect = rect;
+    }
   }
 }
 
-export type DisplayCommand = SolidColor;
+export type DisplayCommand = DisplayCommand.SolidColor;
 export type DisplayList = Array<DisplayCommand>;

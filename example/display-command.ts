@@ -4,12 +4,12 @@
 import { Rect } from "../src/layout";
 
 const Jimp = require("jimp");
-import { Canvas, SolidColor } from "../src/painting";
+import { Canvas, DisplayCommand } from "../src/painting";
 import { Color } from "../src/css";
 const black = new Color(0, 0, 0, 255);
 
 const canvas = Canvas.Create(200, 100);
-canvas.paintItem(new SolidColor(black, new Rect(0, 0, 10, 10)));
+canvas.paintItem(new DisplayCommand.SolidColor(black, new Rect(0, 0, 10, 10)));
 
 // tslint:disable-next-line:no-unused-expression
 new Jimp(canvas.width, canvas.height, (err: any, image: any) => {
