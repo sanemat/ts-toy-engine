@@ -1,5 +1,6 @@
 import { Color } from "./css";
 import { Rect } from "./layout";
+const mathClamp = require("math-clamp");
 
 export class Canvas {
   pixels: Array<Color>;
