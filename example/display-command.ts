@@ -4,9 +4,8 @@
 import { Rect } from "../src/layout";
 
 const Jimp = require("jimp");
-import { Canvas, DisplayCommand, SolidColor } from "../src/painting";
+import { Canvas, SolidColor } from "../src/painting";
 import { Color } from "../src/css";
-const white = new Color(255, 255, 255, 255);
 const black = new Color(0, 0, 0, 255);
 
 const canvas = Canvas.Create(200, 100);
