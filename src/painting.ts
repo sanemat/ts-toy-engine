@@ -3,11 +3,11 @@ import { Rect } from "./layout";
 const mathClamp = require("math-clamp");
 
 export class Canvas {
-  pixels: Array<Color>;
+  pixels: Color[];
   width: number;
   height: number;
 
-  constructor(pixels: Array<Color>, width: number, height: number) {
+  constructor(pixels: Color[], width: number, height: number) {
     this.pixels = pixels;
     this.width = width;
     this.height = height;
@@ -54,4 +54,4 @@ export namespace DisplayCommand {
 }
 
 export type DisplayCommand = DisplayCommand.SolidColor;
-export type DisplayList = Array<DisplayCommand>;
+export type DisplayList = DisplayCommand[];
