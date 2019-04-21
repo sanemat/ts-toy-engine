@@ -1,7 +1,7 @@
 // node_modules/.bin/tsc example/canvas-color.ts -w
 // node example/canvas-color.js | display
 
-const Jimp = require("jimp");
+import * as Jimp from "jimp";
 import { Canvas } from "../src/painting";
 import { Color } from "../src/css";
 const white = new Color(255, 255, 255, 255);
@@ -13,21 +13,20 @@ const canvas = new Canvas(
   10
 );
 
-// tslint:disable-next-line:no-unused-expression
-new Jimp(canvas.width, canvas.height, (err: any, image: any) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-
-  let buffer = image.bitmap.data;
-  for (let i = 0; i < canvas.pixels.length; i++) {
-    buffer[i * 4] = canvas.pixels[i].r;
-    buffer[i * 4 + 1] = canvas.pixels[i].g;
-    buffer[i * 4 + 2] = canvas.pixels[i].b;
-    buffer[i * 4 + 3] = canvas.pixels[i].a;
-  }
-  image.getBufferAsync(Jimp.MIME_PNG).then((value: any) => {
+Jimp.read(canvas.width, canvas.height)
+  .then((value: Jimp) => {
+    let buffer = value.bitmap.data;
+    for (let i = 0; i < canvas.pixels.length; i++) {
+      buffer[i * 4] = canvas.pixels[i].r;
+      buffer[i * 4 + 1] = canvas.pixels[i].g;
+      buffer[i * 4 + 2] = canvas.pixels[i].b;
+      buffer[i * 4 + 3] = canvas.pixels[i].a;
+    }
+    return value.getBufferAsync(Jimp.MIME_PNG);
+  })
+  .then((value: Buffer) => {
     process.stdout.write(value);
+  })
+  .catch((error: Error) => {
+    console.error(error);
   });
-});
