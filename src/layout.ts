@@ -75,8 +75,8 @@ export type BoxType = BoxType.BlockNode | BoxType.InlineNode | BoxType.Anonymous
 export class LayoutBox {
   dimensions: Dimensions;
   boxType: BoxType;
-  children: Array<LayoutBox>;
-  constructor(dimensions: Dimensions, boxType: BoxType, children: Array<LayoutBox>) {
+  children: LayoutBox[];
+  constructor(dimensions: Dimensions, boxType: BoxType, children: LayoutBox[]) {
     this.dimensions = dimensions;
     this.boxType = boxType;
     this.children = children;
