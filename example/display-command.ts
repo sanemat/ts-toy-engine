@@ -1,9 +1,9 @@
 // node_modules/.bin/tsc example/display-command.ts -w
 // node example/display-command.js | display
 
-import { Rect } from "../src/layout";
-
 import * as Jimp from "jimp";
+
+import { Rect } from "../src/layout";
 import { Canvas, DisplayCommand } from "../src/painting";
 import { Color } from "../src/css";
 const black = new Color(0, 0, 0, 255);

@@ -2,6 +2,7 @@
 // node example/canvas-color.js | display
 
 import * as Jimp from "jimp";
+
 import { Canvas } from "../src/painting";
 import { Color } from "../src/css";
 const white = new Color(255, 255, 255, 255);
