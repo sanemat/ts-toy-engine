@@ -1,5 +1,4 @@
-// node_modules/.bin/tsc example/canvas-color.ts -w
-// node example/canvas-color.js | display
+// node_modules/.bin/ts-node example/canvas-color.ts | display
 
 import * as Jimp from "jimp";
 

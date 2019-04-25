@@ -1,5 +1,4 @@
-// node_modules/.bin/tsc example/display-command.ts -w
-// node example/display-command.js | display
+// node_modules/.bin/ts-node example/display-command.ts | display
 
 import * as Jimp from "jimp";
 
