@@ -1,4 +1,5 @@
 import { StyledNode } from "./style";
+import { Color } from "./css";
 
 export class Rect {
   x: number;
@@ -81,4 +82,8 @@ export class LayoutBox {
     this.boxType = boxType;
     this.children = children;
   }
+}
+
+export function getColor(layoutBox: LayoutBox, name: string): Color | null {
+  return null;
 }
