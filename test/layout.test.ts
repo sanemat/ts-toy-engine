@@ -1,6 +1,6 @@
 import { BoxType, Dimensions, EdgeSizes, getColor, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
-import { DomNode } from "../src/dom";
+import { DomNode, NodeType } from "../src/dom";
 import { CssValue } from "../src/css";
 import BlockNode = BoxType.BlockNode;
 
@@ -19,7 +19,7 @@ test("dimensions", () => {
 });
 
 const oneStyledNode = new StyledNode(
-  new DomNode(),
+  new DomNode([], new NodeType.Text("example")),
   new Map([["key", new CssValue.Keyword("hoge")]]),
   []
 );
@@ -54,7 +54,11 @@ test("layout box", () => {
 test("get no color", () => {
   expect(
     getColor(
-      LayoutBox.Create(new BlockNode(new StyledNode(new DomNode(), new Map([]), []))),
+      LayoutBox.Create(
+        new BlockNode(
+          new StyledNode(new DomNode([], new NodeType.Text("example")), new Map([]), [])
+        )
+      ),
       "example"
     )
   ).toEqual(null);
