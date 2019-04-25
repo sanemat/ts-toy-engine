@@ -1,4 +1,11 @@
-export class DomNode {}
+export class DomNode {
+  children: DomNode[];
+  nodeType: NodeType;
+  constructor(children: DomNode[], nodeType: NodeType) {
+    this.children = children;
+    this.nodeType = nodeType;
+  }
+}
 export type AttrMap = Map<string, string>;
 
 export namespace NodeType {
@@ -32,3 +39,5 @@ export namespace NodeType {
     }
   }
 }
+
+export type NodeType = NodeType.Element | NodeType.Text;
