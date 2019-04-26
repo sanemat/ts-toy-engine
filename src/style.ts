@@ -12,4 +12,7 @@ export class StyledNode {
     this.specifiedValues = specifiedValues;
     this.children = children;
   }
+  value(name: string): CssValue | null {
+    return this.specifiedValues.get(name) || null;
+  }
 }
