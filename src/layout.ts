@@ -95,7 +95,3 @@ export class LayoutBox {
     );
   }
 }
-
-export function getColor(layoutBox: LayoutBox, name: string): Color | null {
-  return null;
-}

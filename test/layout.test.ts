@@ -1,8 +1,7 @@
-import { BoxType, Dimensions, EdgeSizes, getColor, LayoutBox, Rect } from "../src/layout";
+import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
 import { DomNode, NodeType } from "../src/dom";
 import { CssValue } from "../src/css";
-import BlockNode = BoxType.BlockNode;
 
 test("rect", () => {
   expect(new Rect(1, 2, 3, 4).height).toBe(4);
@@ -49,17 +48,4 @@ test("layout box", () => {
       []
     ).children
   ).toEqual([]);
-});
-
-test("get no color", () => {
-  expect(
-    getColor(
-      LayoutBox.Create(
-        new BlockNode(
-          new StyledNode(new DomNode([], new NodeType.Text("example")), new Map([]), [])
-        )
-      ),
-      "example"
-    )
-  ).toEqual(null);
 });

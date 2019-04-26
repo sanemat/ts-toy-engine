@@ -1,5 +1,5 @@
 import { Color } from "./css";
-import { Rect } from "./layout";
+import { LayoutBox, Rect } from "./layout";
 const mathClamp = require("math-clamp");
 
 export class Canvas {
@@ -55,3 +55,7 @@ export namespace DisplayCommand {
 
 export type DisplayCommand = DisplayCommand.SolidColor;
 export type DisplayList = DisplayCommand[];
+
+export function getColor(layoutBox: LayoutBox, name: string): Color | null {
+  return null;
+}
