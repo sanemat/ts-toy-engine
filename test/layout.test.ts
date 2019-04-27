@@ -81,3 +81,14 @@ test("Dimensions#borderBox", () => {
     ).borderBox()
   ).toEqual(new Rect(10, 7, 10, 19));
 });
+
+test("Dimensions#marginBox", () => {
+  expect(
+    new Dimensions(
+      new Rect(12, 13, 4, 5),
+      new EdgeSizes(1, 2, 3, 4),
+      new EdgeSizes(1, 2, 3, 4),
+      new EdgeSizes(1, 2, 3, 4)
+    ).marginBox()
+  ).toEqual(new Rect(9, 4, 13, 26));
+});
