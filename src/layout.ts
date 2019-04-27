@@ -76,9 +76,23 @@ export class LayoutBox {
   dimensions: Dimensions;
   boxType: BoxType;
   children: LayoutBox[];
+
   constructor(dimensions: Dimensions, boxType: BoxType, children: LayoutBox[]) {
     this.dimensions = dimensions;
     this.boxType = boxType;
     this.children = children;
+  }
+
+  static Create(boxType: BoxType) {
+    return new LayoutBox(
+      new Dimensions(
+        new Rect(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0)
+      ),
+      boxType,
+      []
+    );
   }
 }
