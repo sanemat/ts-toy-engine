@@ -49,3 +49,7 @@ test("layout box", () => {
     ).children
   ).toEqual([]);
 });
+
+test("layout box create", () => {
+  expect(() => LayoutBox.Create(new BoxType.AnonymousBlock())).not.toThrow();
+});
