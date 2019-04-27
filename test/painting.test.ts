@@ -3,8 +3,6 @@ import { Color, CssValue } from "../src/css";
 import { BoxType, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
 import { DomNode, NodeType } from "../src/dom";
-import BlockNode = BoxType.BlockNode;
-import AnonymousBlock = BoxType.AnonymousBlock;
 
 test("canvas pixels length", () => {
   const canvas = Canvas.Create(2, 3);
@@ -36,7 +34,7 @@ test("get color", () => {
   expect(
     getColor(
       LayoutBox.Create(
-        new BlockNode(
+        new BoxType.BlockNode(
           new StyledNode(
             new DomNode([], new NodeType.Text("text")),
             new Map([["example", new CssValue.ColorValue(expectedColor)]]),
@@ -53,7 +51,7 @@ test("get no color", () => {
   expect(
     getColor(
       LayoutBox.Create(
-        new BlockNode(
+        new BoxType.BlockNode(
           new StyledNode(new DomNode([], new NodeType.Text("example")), new Map([]), [])
         )
       ),
@@ -63,14 +61,14 @@ test("get no color", () => {
 });
 
 test("get no color2", () => {
-  expect(getColor(LayoutBox.Create(new AnonymousBlock()), "example")).toEqual(null);
+  expect(getColor(LayoutBox.Create(new BoxType.AnonymousBlock()), "example")).toEqual(null);
 });
 
 test("get no color3", () => {
   expect(
     getColor(
       LayoutBox.Create(
-        new BlockNode(
+        new BoxType.BlockNode(
           new StyledNode(
             new DomNode([], new NodeType.Text("example")),
             new Map([["example", new CssValue.Keyword("example")]]),
