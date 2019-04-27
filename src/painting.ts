@@ -1,5 +1,5 @@
-import { Color } from "./css";
-import { Rect } from "./layout";
+import { Color, CssValue } from "./css";
+import { BoxType, LayoutBox, Rect } from "./layout";
 const mathClamp = require("math-clamp");
 
 export class Canvas {
@@ -55,3 +55,22 @@ export namespace DisplayCommand {
 
 export type DisplayCommand = DisplayCommand.SolidColor;
 export type DisplayList = DisplayCommand[];
+
+export function getColor(layoutBox: LayoutBox, name: string): Color | null {
+  switch (layoutBox.boxType.format) {
+    case BoxType.Format.BlockNode:
+    case BoxType.Format.InlineNode:
+      const style = layoutBox.boxType.styledNode.value(name);
+      if (style === null) {
+        return null;
+      }
+      switch (style.format) {
+        case CssValue.Format.ColorValue:
+          return style.colorValue;
+        default:
+          return null;
+      }
+    case BoxType.Format.AnonymousBlock:
+      return null;
+  }
+}
