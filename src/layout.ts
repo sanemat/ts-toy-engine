@@ -1,5 +1,4 @@
 import { StyledNode } from "./style";
-import { Color } from "./css";
 
 export class Rect {
   x: number;
