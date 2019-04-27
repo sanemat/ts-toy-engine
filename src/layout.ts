@@ -12,6 +12,15 @@ export class Rect {
     this.width = width;
     this.height = height;
   }
+
+  expandedBy(edge: EdgeSizes): Rect {
+    return new Rect(
+      this.x - edge.left,
+      this.y - edge.top,
+      this.width + edge.left + edge.right,
+      this.height + edge.top + edge.bottom
+    );
+  }
 }
 
 export class EdgeSizes {

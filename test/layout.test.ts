@@ -50,6 +50,12 @@ test("layout box", () => {
   ).toEqual([]);
 });
 
+test("expandedBy", () => {
+  expect(new Rect(12, 13, 4, 5).expandedBy(new EdgeSizes(1, 2, 3, 4))).toEqual(
+    new Rect(11, 10, 7, 12)
+  );
+});
+
 test("layout box create", () => {
   expect(() => LayoutBox.Create(new BoxType.AnonymousBlock())).not.toThrow();
 });
