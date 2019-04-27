@@ -49,6 +49,11 @@ export class Dimensions {
     this.border = border;
     this.margin = margin;
   }
+
+  // The area covered by the content area plus its padding.
+  paddingBox(): Rect {
+    return this.content.expandedBy(this.padding);
+  }
 }
 
 export namespace BoxType {

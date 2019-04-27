@@ -59,3 +59,14 @@ test("expandedBy", () => {
 test("layout box create", () => {
   expect(() => LayoutBox.Create(new BoxType.AnonymousBlock())).not.toThrow();
 });
+
+test("Dimensions#paddingBox", () => {
+  expect(
+    new Dimensions(
+      new Rect(12, 13, 4, 5),
+      new EdgeSizes(1, 2, 3, 4),
+      new EdgeSizes(1, 2, 3, 4),
+      new EdgeSizes(1, 2, 3, 4)
+    ).paddingBox()
+  ).toEqual(new Rect(11, 10, 7, 12));
+});
