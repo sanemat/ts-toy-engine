@@ -74,3 +74,11 @@ export function getColor(layoutBox: LayoutBox, name: string): Color | null {
       return null;
   }
 }
+
+export function renderBackground(list: DisplayList, layoutBox: LayoutBox) {
+  const color = getColor(layoutBox, "background");
+  if (!color) {
+    return;
+  }
+  list.push(new DisplayCommand.SolidColor(color, layoutBox.dimensions.borderBox()));
+}
