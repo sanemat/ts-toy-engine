@@ -1,4 +1,4 @@
-import { Canvas, DisplayCommand, getColor, renderBackground } from "../src/painting";
+import { Canvas, DisplayCommand, getColor, renderBackground, renderBorder } from "../src/painting";
 import { Color, CssValue } from "../src/css";
 import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
@@ -105,4 +105,46 @@ test("render background no color", () => {
     LayoutBox.Create(new BoxType.BlockNode(new StyledNode(new DomNode(), new Map(), [])))
   );
   expect(displayList.length).toEqual(0);
+});
+
+test("render border no border", () => {
+  const displayList: DisplayCommand[] = [];
+  renderBorder(
+    displayList,
+    LayoutBox.Create(new BoxType.BlockNode(new StyledNode(new DomNode(), new Map(), [])))
+  );
+  expect(displayList.length).toEqual(0);
+});
+
+test("render border with color", () => {
+  const displayList: DisplayCommand[] = [];
+  renderBorder(
+    displayList,
+    new LayoutBox(
+      new Dimensions(
+        new Rect(20, 30, 5, 5),
+        new EdgeSizes(2, 3, 4, 5),
+        new EdgeSizes(2, 3, 4, 5),
+        new EdgeSizes(2, 3, 4, 5)
+      ),
+      new BoxType.BlockNode(
+        new StyledNode(
+          new DomNode(),
+          new Map([["border-color", new CssValue.ColorValue(black)]]),
+          []
+        )
+      ),
+      []
+    )
+  );
+  expect(displayList).toEqual([
+    // left
+    new DisplayCommand.SolidColor(black, new Rect(16, 22, 2, 23)),
+    // right
+    new DisplayCommand.SolidColor(black, new Rect(28, 22, 3, 23)),
+    // top
+    new DisplayCommand.SolidColor(black, new Rect(16, 22, 15, 4)),
+    // bottom
+    new DisplayCommand.SolidColor(black, new Rect(16, 40, 15, 5))
+  ]);
 });
