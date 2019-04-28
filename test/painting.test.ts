@@ -1,6 +1,6 @@
-import { Canvas, DisplayCommand, getColor } from "../src/painting";
+import { Canvas, DisplayCommand, getColor, renderBackground } from "../src/painting";
 import { Color, CssValue } from "../src/css";
-import { BoxType, LayoutBox, Rect } from "../src/layout";
+import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
 import { DomNode } from "../src/dom";
 
@@ -70,4 +70,39 @@ test("get no color3", () => {
       "target"
     )
   ).toEqual(null);
+});
+
+test("render background with color", () => {
+  const displayList: DisplayCommand[] = [];
+  renderBackground(
+    displayList,
+    new LayoutBox(
+      new Dimensions(
+        new Rect(20, 30, 5, 5),
+        new EdgeSizes(2, 3, 4, 5),
+        new EdgeSizes(2, 3, 4, 5),
+        new EdgeSizes(2, 3, 4, 5)
+      ),
+      new BoxType.BlockNode(
+        new StyledNode(
+          new DomNode(),
+          new Map([["background", new CssValue.ColorValue(new Color(0, 0, 0, 0))]]),
+          []
+        )
+      ),
+      []
+    )
+  );
+  expect(displayList[0]).toEqual(
+    new DisplayCommand.SolidColor(new Color(0, 0, 0, 0), new Rect(16, 22, 15, 23))
+  );
+});
+
+test("render background no color", () => {
+  const displayList: DisplayCommand[] = [];
+  renderBackground(
+    displayList,
+    LayoutBox.Create(new BoxType.BlockNode(new StyledNode(new DomNode(), new Map(), [])))
+  );
+  expect(displayList.length).toEqual(0);
 });
