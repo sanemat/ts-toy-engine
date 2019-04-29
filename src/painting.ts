@@ -133,3 +133,8 @@ export function renderBorders(list: DisplayList, layoutBox: LayoutBox) {
     )
   );
 }
+
+export function renderLayoutBox(list: DisplayList, layoutBox: LayoutBox) {
+  renderBackground(list, layoutBox);
+  renderBorders(list, layoutBox);
+}

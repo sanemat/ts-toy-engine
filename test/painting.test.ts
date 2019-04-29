@@ -1,4 +1,11 @@
-import { Canvas, DisplayCommand, getColor, renderBackground, renderBorders } from "../src/painting";
+import {
+  Canvas,
+  DisplayCommand,
+  getColor,
+  renderBackground,
+  renderBorders,
+  renderLayoutBox
+} from "../src/painting";
 import { Color, CssValue } from "../src/css";
 import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
@@ -11,6 +18,7 @@ test("canvas pixels length", () => {
 
 const white = new Color(255, 255, 255, 255);
 const black = new Color(0, 0, 0, 255);
+const blue = new Color(0, 0, 255, 255);
 test("canvas is filled by white", () => {
   const canvas = Canvas.Create(2, 3);
 
@@ -135,6 +143,39 @@ test("render border with color", () => {
     )
   );
   expect(displayList).toEqual([
+    // left
+    new DisplayCommand.SolidColor(black, new Rect(16, 22, 2, 23)),
+    // right
+    new DisplayCommand.SolidColor(black, new Rect(28, 22, 3, 23)),
+    // top
+    new DisplayCommand.SolidColor(black, new Rect(16, 22, 15, 4)),
+    // bottom
+    new DisplayCommand.SolidColor(black, new Rect(16, 40, 15, 5))
+  ]);
+});
+
+test("render layout box", () => {
+  const displayList: DisplayCommand[] = [];
+  renderLayoutBox(
+    displayList,
+    new LayoutBox(
+      exampleDimensions,
+      new BoxType.BlockNode(
+        new StyledNode(
+          new DomNode(),
+          new Map([
+            ["border-color", new CssValue.ColorValue(black)],
+            ["background", new CssValue.ColorValue(blue)]
+          ]),
+          []
+        )
+      ),
+      []
+    )
+  );
+  expect(displayList).toEqual([
+    // background
+    new DisplayCommand.SolidColor(blue, new Rect(16, 22, 15, 23)),
     // left
     new DisplayCommand.SolidColor(black, new Rect(16, 22, 2, 23)),
     // right
