@@ -1,4 +1,5 @@
 import {
+  buildDisplayList,
   Canvas,
   DisplayCommand,
   getColor,
@@ -250,5 +251,37 @@ test("render layout box children", () => {
     new DisplayCommand.SolidColor(red, new Rect(22, 32, 1, 0)),
     // children bottom
     new DisplayCommand.SolidColor(red, new Rect(22, 33, 1, 0))
+  ]);
+});
+
+test("build display list", () => {
+  expect(
+    buildDisplayList(
+      new LayoutBox(
+        exampleDimensions,
+        new BoxType.BlockNode(
+          new StyledNode(
+            new DomNode(),
+            new Map([
+              ["border-color", new CssValue.ColorValue(black)],
+              ["background", new CssValue.ColorValue(blue)]
+            ]),
+            []
+          )
+        ),
+        []
+      )
+    )
+  ).toEqual([
+    // background
+    new DisplayCommand.SolidColor(blue, new Rect(16, 22, 15, 23)),
+    // left
+    new DisplayCommand.SolidColor(black, new Rect(16, 22, 2, 23)),
+    // right
+    new DisplayCommand.SolidColor(black, new Rect(28, 22, 3, 23)),
+    // top
+    new DisplayCommand.SolidColor(black, new Rect(16, 22, 15, 4)),
+    // bottom
+    new DisplayCommand.SolidColor(black, new Rect(16, 40, 15, 5))
   ]);
 });

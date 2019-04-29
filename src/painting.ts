@@ -141,3 +141,9 @@ export function renderLayoutBox(list: DisplayList, layoutBox: LayoutBox) {
     renderLayoutBox(list, child);
   }
 }
+
+export function buildDisplayList(layoutRoot: LayoutBox): DisplayList {
+  const list: DisplayCommand[] = [];
+  renderLayoutBox(list, layoutRoot);
+  return list;
+}
