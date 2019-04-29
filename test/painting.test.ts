@@ -1,4 +1,4 @@
-import { Canvas, DisplayCommand, getColor, renderBackground, renderBorder } from "../src/painting";
+import { Canvas, DisplayCommand, getColor, renderBackground, renderBorders } from "../src/painting";
 import { Color, CssValue } from "../src/css";
 import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
@@ -111,7 +111,7 @@ test("render background no color", () => {
 
 test("render border no border", () => {
   const displayList: DisplayCommand[] = [];
-  renderBorder(
+  renderBorders(
     displayList,
     LayoutBox.Create(new BoxType.BlockNode(new StyledNode(new DomNode(), new Map(), [])))
   );
@@ -120,7 +120,7 @@ test("render border no border", () => {
 
 test("render border with color", () => {
   const displayList: DisplayCommand[] = [];
-  renderBorder(
+  renderBorders(
     displayList,
     new LayoutBox(
       exampleDimensions,
