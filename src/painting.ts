@@ -83,7 +83,7 @@ export function renderBackground(list: DisplayList, layoutBox: LayoutBox) {
   list.push(new DisplayCommand.SolidColor(color, layoutBox.dimensions.borderBox()));
 }
 
-export function renderBorder(list: DisplayList, layoutBox: LayoutBox) {
+export function renderBorders(list: DisplayList, layoutBox: LayoutBox) {
   const color = getColor(layoutBox, "border-color");
   if (!color) {
     return;
