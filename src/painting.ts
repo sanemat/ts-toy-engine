@@ -147,3 +147,13 @@ export function buildDisplayList(layoutRoot: LayoutBox): DisplayList {
   renderLayoutBox(list, layoutRoot);
   return list;
 }
+
+// Paint a tree of LayoutBoxes to an array of pixels.
+export function paint(layoutRoot: LayoutBox, bounds: Rect): Canvas {
+  const displayList = buildDisplayList(layoutRoot);
+  const canvas = Canvas.Create(bounds.width, bounds.height);
+  for (let item of displayList) {
+    canvas.paintItem(item);
+  }
+  return canvas;
+}
