@@ -133,3 +133,11 @@ export function renderBorders(list: DisplayList, layoutBox: LayoutBox) {
     )
   );
 }
+
+export function renderLayoutBox(list: DisplayList, layoutBox: LayoutBox) {
+  renderBackground(list, layoutBox);
+  renderBorders(list, layoutBox);
+  for (let child of layoutBox.children) {
+    renderLayoutBox(list, child);
+  }
+}
