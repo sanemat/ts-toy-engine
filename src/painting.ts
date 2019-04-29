@@ -82,3 +82,54 @@ export function renderBackground(list: DisplayList, layoutBox: LayoutBox) {
   }
   list.push(new DisplayCommand.SolidColor(color, layoutBox.dimensions.borderBox()));
 }
+
+export function renderBorder(list: DisplayList, layoutBox: LayoutBox) {
+  const color = getColor(layoutBox, "border-color");
+  if (!color) {
+    return;
+  }
+  const dimensions = layoutBox.dimensions;
+  const borderBox = dimensions.borderBox();
+
+  // left border
+  list.push(
+    new DisplayCommand.SolidColor(
+      color,
+      new Rect(borderBox.x, borderBox.y, dimensions.border.left, borderBox.height)
+    )
+  );
+
+  // right border
+  list.push(
+    new DisplayCommand.SolidColor(
+      color,
+      new Rect(
+        borderBox.x + borderBox.width - dimensions.border.right,
+        borderBox.y,
+        dimensions.border.right,
+        borderBox.height
+      )
+    )
+  );
+
+  // top border
+  list.push(
+    new DisplayCommand.SolidColor(
+      color,
+      new Rect(borderBox.x, borderBox.y, borderBox.width, dimensions.border.top)
+    )
+  );
+
+  // bottom border
+  list.push(
+    new DisplayCommand.SolidColor(
+      color,
+      new Rect(
+        borderBox.x,
+        borderBox.y + borderBox.height - dimensions.border.bottom,
+        borderBox.width,
+        dimensions.border.bottom
+      )
+    )
+  );
+}
