@@ -285,3 +285,40 @@ test("build display list", () => {
     new DisplayCommand.SolidColor(black, new Rect(16, 40, 15, 5))
   ]);
 });
+
+test("build display list2", () => {
+  expect(
+    buildDisplayList(
+      new LayoutBox(
+        new Dimensions(
+          new Rect(3, 3, 2, 1),
+          new EdgeSizes(1, 1, 1, 1),
+          new EdgeSizes(1, 1, 1, 1),
+          new EdgeSizes(1, 1, 1, 1)
+        ),
+        new BoxType.BlockNode(
+          new StyledNode(
+            new DomNode(),
+            new Map([
+              ["border-color", new CssValue.ColorValue(red)],
+              ["background", new CssValue.ColorValue(green)]
+            ]),
+            []
+          )
+        ),
+        []
+      )
+    )
+  ).toEqual([
+    // background
+    new DisplayCommand.SolidColor(green, new Rect(1, 1, 6, 5)),
+    // left
+    new DisplayCommand.SolidColor(red, new Rect(1, 1, 1, 5)),
+    // right
+    new DisplayCommand.SolidColor(red, new Rect(6, 1, 1, 5)),
+    // top
+    new DisplayCommand.SolidColor(red, new Rect(1, 1, 6, 1)),
+    // bottom
+    new DisplayCommand.SolidColor(red, new Rect(1, 5, 6, 1))
+  ]);
+});
