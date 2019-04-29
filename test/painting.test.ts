@@ -37,7 +37,7 @@ test("solid color", () => {
 
 test("canvas paint item", () => {
   const canvas = Canvas.Create(2, 3);
-  canvas.paintItem(new DisplayCommand.SolidColor(black, new Rect(0, 0, 0, 0)));
+  canvas.paintItem(new DisplayCommand.SolidColor(black, new Rect(0, 0, 1, 1)));
   expect(canvas.pixels).toEqual([black, white, white, white, white, white]);
 });
 
