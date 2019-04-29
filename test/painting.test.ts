@@ -19,6 +19,9 @@ test("canvas pixels length", () => {
 const white = new Color(255, 255, 255, 255);
 const black = new Color(0, 0, 0, 255);
 const blue = new Color(0, 0, 255, 255);
+const red = new Color(255, 0, 0, 255);
+const green = new Color(0, 255, 0, 255);
+
 test("canvas is filled by white", () => {
   const canvas = Canvas.Create(2, 3);
 
@@ -184,5 +187,68 @@ test("render layout box", () => {
     new DisplayCommand.SolidColor(black, new Rect(16, 22, 15, 4)),
     // bottom
     new DisplayCommand.SolidColor(black, new Rect(16, 40, 15, 5))
+  ]);
+});
+
+test("render layout box children", () => {
+  const displayList: DisplayCommand[] = [];
+  renderLayoutBox(
+    displayList,
+    new LayoutBox(
+      exampleDimensions,
+      new BoxType.BlockNode(
+        new StyledNode(
+          new DomNode(),
+          new Map([
+            ["border-color", new CssValue.ColorValue(black)],
+            ["background", new CssValue.ColorValue(blue)]
+          ]),
+          []
+        )
+      ),
+      [
+        new LayoutBox(
+          new Dimensions(
+            new Rect(22, 32, 1, 1),
+            new EdgeSizes(0, 0, 0, 0),
+            new EdgeSizes(0, 0, 0, 0),
+            new EdgeSizes(0, 0, 0, 0)
+          ),
+          new BoxType.BlockNode(
+            new StyledNode(
+              new DomNode(),
+              new Map([
+                ["border-color", new CssValue.ColorValue(red)],
+                ["background", new CssValue.ColorValue(green)]
+              ]),
+              []
+            )
+          ),
+          []
+        )
+      ]
+    )
+  );
+  expect(displayList).toEqual([
+    // background
+    new DisplayCommand.SolidColor(blue, new Rect(16, 22, 15, 23)),
+    // left
+    new DisplayCommand.SolidColor(black, new Rect(16, 22, 2, 23)),
+    // right
+    new DisplayCommand.SolidColor(black, new Rect(28, 22, 3, 23)),
+    // top
+    new DisplayCommand.SolidColor(black, new Rect(16, 22, 15, 4)),
+    // bottom
+    new DisplayCommand.SolidColor(black, new Rect(16, 40, 15, 5)),
+    // children background
+    new DisplayCommand.SolidColor(green, new Rect(22, 32, 1, 1)),
+    // children left
+    new DisplayCommand.SolidColor(red, new Rect(22, 32, 0, 1)),
+    // children right
+    new DisplayCommand.SolidColor(red, new Rect(23, 32, 0, 1)),
+    // children top
+    new DisplayCommand.SolidColor(red, new Rect(22, 32, 1, 0)),
+    // children bottom
+    new DisplayCommand.SolidColor(red, new Rect(22, 33, 1, 0))
   ]);
 });
