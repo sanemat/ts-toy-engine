@@ -72,17 +72,19 @@ test("get no color3", () => {
   ).toEqual(null);
 });
 
+const exampleDimensions = new Dimensions(
+  new Rect(20, 30, 5, 5),
+  new EdgeSizes(2, 3, 4, 5),
+  new EdgeSizes(2, 3, 4, 5),
+  new EdgeSizes(2, 3, 4, 5)
+);
+
 test("render background with color", () => {
   const displayList: DisplayCommand[] = [];
   renderBackground(
     displayList,
     new LayoutBox(
-      new Dimensions(
-        new Rect(20, 30, 5, 5),
-        new EdgeSizes(2, 3, 4, 5),
-        new EdgeSizes(2, 3, 4, 5),
-        new EdgeSizes(2, 3, 4, 5)
-      ),
+      exampleDimensions,
       new BoxType.BlockNode(
         new StyledNode(
           new DomNode(),
@@ -121,12 +123,7 @@ test("render border with color", () => {
   renderBorder(
     displayList,
     new LayoutBox(
-      new Dimensions(
-        new Rect(20, 30, 5, 5),
-        new EdgeSizes(2, 3, 4, 5),
-        new EdgeSizes(2, 3, 4, 5),
-        new EdgeSizes(2, 3, 4, 5)
-      ),
+      exampleDimensions,
       new BoxType.BlockNode(
         new StyledNode(
           new DomNode(),
