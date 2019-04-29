@@ -3,6 +3,7 @@ import {
   Canvas,
   DisplayCommand,
   getColor,
+  paint,
   renderBackground,
   renderBorders,
   renderLayoutBox
@@ -353,6 +354,45 @@ test("display list layout", () => {
     canvas.paintItem(item);
   }
   expect(canvas).toEqual(
+    new Canvas(
+      [white, white, white, white, white, white, white, white]
+        .concat([white, red, red, red, red, red, red, white])
+        .concat([white, red, green, green, green, green, red, white])
+        .concat([white, red, green, green, green, green, red, white])
+        .concat([white, red, green, green, green, green, red, white])
+        .concat([white, red, red, red, red, red, red, white])
+        .concat([white, white, white, white, white, white, white, white]),
+      8,
+      7
+    )
+  );
+});
+
+test("paint", () => {
+  expect(
+    paint(
+      new LayoutBox(
+        new Dimensions(
+          new Rect(3, 3, 2, 1),
+          new EdgeSizes(1, 1, 1, 1),
+          new EdgeSizes(1, 1, 1, 1),
+          new EdgeSizes(1, 1, 1, 1)
+        ),
+        new BoxType.BlockNode(
+          new StyledNode(
+            new DomNode(),
+            new Map([
+              ["border-color", new CssValue.ColorValue(red)],
+              ["background", new CssValue.ColorValue(green)]
+            ]),
+            []
+          )
+        ),
+        []
+      ),
+      new Rect(0, 0, 8, 7)
+    )
+  ).toEqual(
     new Canvas(
       [white, white, white, white, white, white, white, white]
         .concat([white, red, red, red, red, red, red, white])
