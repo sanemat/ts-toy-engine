@@ -322,3 +322,47 @@ test("build display list2", () => {
     new DisplayCommand.SolidColor(red, new Rect(1, 5, 6, 1))
   ]);
 });
+
+test("display list override color", () => {
+  const canvas = Canvas.Create(3, 2);
+  const list: DisplayCommand[] = [
+    new DisplayCommand.SolidColor(green, new Rect(0, 0, 2, 1)),
+    new DisplayCommand.SolidColor(red, new Rect(1, 0, 1, 1))
+  ];
+  for (let item of list) {
+    canvas.paintItem(item);
+  }
+  expect(canvas).toEqual(new Canvas([green, red, white].concat([white, white, white]), 3, 2));
+});
+
+test("display list layout", () => {
+  const canvas = Canvas.Create(8, 7);
+  const list: DisplayCommand[] = [
+    // background
+    new DisplayCommand.SolidColor(green, new Rect(1, 1, 6, 5)),
+    // left
+    new DisplayCommand.SolidColor(red, new Rect(1, 1, 1, 5)),
+    // right
+    new DisplayCommand.SolidColor(red, new Rect(6, 1, 1, 5)),
+    // top
+    new DisplayCommand.SolidColor(red, new Rect(1, 1, 6, 1)),
+    // bottom
+    new DisplayCommand.SolidColor(red, new Rect(1, 5, 6, 1))
+  ];
+  for (let item of list) {
+    canvas.paintItem(item);
+  }
+  expect(canvas).toEqual(
+    new Canvas(
+      [white, white, white, white, white, white, white, white]
+        .concat([white, red, red, red, red, red, red, white])
+        .concat([white, red, green, green, green, green, red, white])
+        .concat([white, red, green, green, green, green, red, white])
+        .concat([white, red, green, green, green, green, red, white])
+        .concat([white, red, red, red, red, red, red, white])
+        .concat([white, white, white, white, white, white, white, white]),
+      8,
+      7
+    )
+  );
+});
