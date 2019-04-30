@@ -11,7 +11,7 @@ import {
 import { Color, CssValue } from "../src/css";
 import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
-import { DomNode, NodeType } from "../src/dom";
+import { text } from "../src/dom";
 
 test("canvas pixels length", () => {
   const canvas = Canvas.Create(2, 3);
@@ -49,7 +49,7 @@ test("get color", () => {
       LayoutBox.Create(
         new BoxType.BlockNode(
           new StyledNode(
-            new DomNode([], new NodeType.Text("no mean")),
+            text("no mean"),
             new Map([["target", new CssValue.ColorValue(expectedColor)]]),
             []
           )
@@ -63,11 +63,7 @@ test("get color", () => {
 test("get no color", () => {
   expect(
     getColor(
-      LayoutBox.Create(
-        new BoxType.BlockNode(
-          new StyledNode(new DomNode([], new NodeType.Text("no mean")), new Map([]), [])
-        )
-      ),
+      LayoutBox.Create(new BoxType.BlockNode(new StyledNode(text("no mean"), new Map([]), []))),
       "target"
     )
   ).toEqual(null);
@@ -82,13 +78,7 @@ test("get no color3", () => {
   expect(
     getColor(
       LayoutBox.Create(
-        new BoxType.BlockNode(
-          new StyledNode(
-            new DomNode([], new NodeType.Text("no mean")),
-            new Map([["target", notColor]]),
-            []
-          )
-        )
+        new BoxType.BlockNode(new StyledNode(text("no mean"), new Map([["target", notColor]]), []))
       ),
       "target"
     )
@@ -110,7 +100,7 @@ test("render background with color", () => {
       exampleDimensions,
       new BoxType.BlockNode(
         new StyledNode(
-          new DomNode([], new NodeType.Text("no mean")),
+          text("no mean"),
           new Map([["background", new CssValue.ColorValue(new Color(0, 0, 0, 0))]]),
           []
         )
@@ -127,11 +117,7 @@ test("render background no color", () => {
   const displayList: DisplayCommand[] = [];
   renderBackground(
     displayList,
-    LayoutBox.Create(
-      new BoxType.BlockNode(
-        new StyledNode(new DomNode([], new NodeType.Text("no mean")), new Map(), [])
-      )
-    )
+    LayoutBox.Create(new BoxType.BlockNode(new StyledNode(text("no mean"), new Map(), [])))
   );
   expect(displayList.length).toEqual(0);
 });
@@ -140,11 +126,7 @@ test("render border no border", () => {
   const displayList: DisplayCommand[] = [];
   renderBorders(
     displayList,
-    LayoutBox.Create(
-      new BoxType.BlockNode(
-        new StyledNode(new DomNode([], new NodeType.Text("no mean")), new Map(), [])
-      )
-    )
+    LayoutBox.Create(new BoxType.BlockNode(new StyledNode(text("no mean"), new Map(), [])))
   );
   expect(displayList.length).toEqual(0);
 });
@@ -157,7 +139,7 @@ test("render border with color", () => {
       exampleDimensions,
       new BoxType.BlockNode(
         new StyledNode(
-          new DomNode([], new NodeType.Text("no mean")),
+          text("no mean"),
           new Map([["border-color", new CssValue.ColorValue(black)]]),
           []
         )
@@ -185,7 +167,7 @@ test("render layout box", () => {
       exampleDimensions,
       new BoxType.BlockNode(
         new StyledNode(
-          new DomNode([], new NodeType.Text("no mean")),
+          text("no mean"),
           new Map([
             ["border-color", new CssValue.ColorValue(black)],
             ["background", new CssValue.ColorValue(blue)]
@@ -218,7 +200,7 @@ test("render layout box children", () => {
       exampleDimensions,
       new BoxType.BlockNode(
         new StyledNode(
-          new DomNode([], new NodeType.Text("no mean")),
+          text("no mean"),
           new Map([
             ["border-color", new CssValue.ColorValue(black)],
             ["background", new CssValue.ColorValue(blue)]
@@ -236,7 +218,7 @@ test("render layout box children", () => {
           ),
           new BoxType.BlockNode(
             new StyledNode(
-              new DomNode([], new NodeType.Text("no mean")),
+              text("no mean"),
               new Map([
                 ["border-color", new CssValue.ColorValue(red)],
                 ["background", new CssValue.ColorValue(green)]
@@ -280,7 +262,7 @@ test("build display list", () => {
         exampleDimensions,
         new BoxType.BlockNode(
           new StyledNode(
-            new DomNode([], new NodeType.Text("no mean")),
+            text("no mean"),
             new Map([
               ["border-color", new CssValue.ColorValue(black)],
               ["background", new CssValue.ColorValue(blue)]
@@ -317,7 +299,7 @@ test("build display list2", () => {
         ),
         new BoxType.BlockNode(
           new StyledNode(
-            new DomNode([], new NodeType.Text("no mean")),
+            text("no mean"),
             new Map([
               ["border-color", new CssValue.ColorValue(red)],
               ["background", new CssValue.ColorValue(green)]
@@ -398,7 +380,7 @@ test("paint", () => {
         ),
         new BoxType.BlockNode(
           new StyledNode(
-            new DomNode([], new NodeType.Text("no mean")),
+            text("no mean"),
             new Map([
               ["border-color", new CssValue.ColorValue(red)],
               ["background", new CssValue.ColorValue(green)]

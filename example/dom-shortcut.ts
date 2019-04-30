@@ -9,7 +9,7 @@
 //
 // <html><body>Hello, world!</body></html>
 
-import { DomNode, ElementData, NodeType } from "../src/dom";
+import { DomNode, ElementData, NodeType, text } from "../src/dom";
 
 // let root = element("html");
 // let body = element("body");
@@ -19,5 +19,5 @@ import { DomNode, ElementData, NodeType } from "../src/dom";
 const root = new DomNode([], new NodeType.Element(new ElementData("html", new Map([]))));
 const body = new DomNode([], new NodeType.Element(new ElementData("body", new Map([]))));
 root.children.push(body);
-body.children.push(new DomNode([], new NodeType.Text("Hello, world!")));
+body.children.push(text("Hello, world!"));
 console.log(root);
