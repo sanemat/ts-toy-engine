@@ -50,3 +50,7 @@ export class ElementData {
 export function text(data: string): DomNode {
   return new DomNode([], new NodeType.Text(data));
 }
+
+export function elem(name: string, attrs: AttrMap, children: DomNode[]): DomNode {
+  return new DomNode(children, new NodeType.Element(new ElementData(name, attrs)));
+}
