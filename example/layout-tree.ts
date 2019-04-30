@@ -6,7 +6,7 @@ import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { paint } from "../src/painting";
 import { Color, CssValue } from "../src/css";
 import { StyledNode } from "../src/style";
-import { DomNode } from "../src/dom";
+import { text } from "../src/dom";
 
 const red = new Color(255, 0, 0, 255);
 const green = new Color(0, 255, 0, 255);
@@ -21,7 +21,7 @@ const canvas = paint(
     ),
     new BoxType.BlockNode(
       new StyledNode(
-        new DomNode(),
+        text("no mean"),
         new Map([
           ["border-color", new CssValue.ColorValue(red)],
           ["background", new CssValue.ColorValue(green)]
