@@ -46,3 +46,7 @@ export class ElementData {
     this.attributes = attributes;
   }
 }
+
+export function text(data: string): DomNode {
+  return new DomNode([], new NodeType.Text(data));
+}
