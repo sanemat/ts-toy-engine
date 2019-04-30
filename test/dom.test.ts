@@ -1,4 +1,4 @@
-import { DomNode } from "../src/dom";
+import { DomNode, NodeType } from "../src/dom";
 test("node", () => {
-  expect(() => new DomNode()).not.toThrow();
+  expect(() => new DomNode([], new NodeType.Text("no mean"))).not.toThrow();
 });
