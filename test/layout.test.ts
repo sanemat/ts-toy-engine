@@ -1,6 +1,6 @@
 import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
-import { DomNode } from "../src/dom";
+import { DomNode, NodeType } from "../src/dom";
 import { CssValue } from "../src/css";
 
 test("rect", () => {
@@ -18,7 +18,7 @@ test("dimensions", () => {
 });
 
 const oneStyledNode = new StyledNode(
-  new DomNode(),
+  new DomNode([], new NodeType.Text("no mean")),
   new Map([["key", new CssValue.Keyword("hoge")]]),
   []
 );
