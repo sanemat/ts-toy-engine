@@ -9,15 +9,15 @@
 //
 // <html><body>Hello, world!</body></html>
 
-import { DomNode, ElementData, NodeType, text } from "../src/dom";
+import { elem, text } from "../src/dom";
 
 // let root = element("html");
 // let body = element("body");
 // root.children.push(body);
 // body.children.push(text("Hello, world!"));
 
-const root = new DomNode([], new NodeType.Element(new ElementData("html", new Map([]))));
-const body = new DomNode([], new NodeType.Element(new ElementData("body", new Map([]))));
+const root = elem("html", new Map([]), []);
+const body = elem("body", new Map([]), []);
 root.children.push(body);
 body.children.push(text("Hello, world!"));
 console.log(root);
