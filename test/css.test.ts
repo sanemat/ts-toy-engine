@@ -1,4 +1,4 @@
-import { Color, Unit, CssValue, Declaration } from "../src/css";
+import { Color, Unit, CssValue, Declaration, SimpleSelector, Selector } from "../src/css";
 
 test("a", () => {
   expect(new Color(0, 0, 0, 255).a).toEqual(255);
@@ -37,4 +37,12 @@ test("color white", () => {
 
 test("declaration", () => {
   expect(() => new Declaration("name", new CssValue.Keyword("keyword"))).not.toThrow();
+});
+
+test("simple selector", () => {
+  expect(() => new SimpleSelector(null, null, [])).not.toThrow();
+});
+
+test("selector simple", () => {
+  expect(() => new Selector.Simple(new SimpleSelector(null, null, []))).not.toThrow();
 });

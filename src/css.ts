@@ -61,3 +61,32 @@ export class Declaration {
     this.value = value;
   }
 }
+
+export namespace Selector {
+  export enum Format {
+    Simple
+  }
+
+  export class Simple {
+    readonly format = Format.Simple;
+    selector: SimpleSelector;
+
+    constructor(selector: SimpleSelector) {
+      this.selector = selector;
+    }
+  }
+}
+
+export type Selector = Selector.Simple;
+
+export class SimpleSelector {
+  tagName: string | null;
+  id: string | null;
+  classValue: string[];
+
+  constructor(tagName: string | null, id: string | null, classValue: string[]) {
+    this.tagName = tagName;
+    this.id = id;
+    this.classValue = classValue;
+  }
+}
