@@ -90,3 +90,13 @@ export class SimpleSelector {
     this.classValue = classValue;
   }
 }
+
+export class Rule {
+  selectors: Selector[];
+  declarations: Declaration[];
+
+  constructor(selectors: Selector[], declarations: Declaration[]) {
+    this.selectors = selectors;
+    this.declarations = declarations;
+  }
+}
