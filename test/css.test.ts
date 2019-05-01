@@ -1,4 +1,4 @@
-import { Color, Unit, CssValue } from "../src/css";
+import { Color, Unit, CssValue, Declaration } from "../src/css";
 
 test("a", () => {
   expect(new Color(0, 0, 0, 255).a).toEqual(255);
@@ -33,4 +33,8 @@ test("length 6", () => {
 test("color white", () => {
   const white = new Color(255, 255, 255, 255);
   expect(new CssValue.ColorValue(white).colorValue).toEqual(white);
+});
+
+test("declaration", () => {
+  expect(() => new Declaration("name", new CssValue.Keyword("keyword"))).not.toThrow();
 });

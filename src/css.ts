@@ -51,3 +51,13 @@ export namespace CssValue {
 }
 
 export type CssValue = CssValue.Keyword | CssValue.Length | CssValue.ColorValue;
+
+export class Declaration {
+  name: string;
+  value: CssValue;
+
+  constructor(name: string, value: CssValue) {
+    this.name = name;
+    this.value = value;
+  }
+}
