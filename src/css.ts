@@ -51,3 +51,60 @@ export namespace CssValue {
 }
 
 export type CssValue = CssValue.Keyword | CssValue.Length | CssValue.ColorValue;
+
+export class Declaration {
+  name: string;
+  value: CssValue;
+
+  constructor(name: string, value: CssValue) {
+    this.name = name;
+    this.value = value;
+  }
+}
+
+export namespace Selector {
+  export enum Format {
+    Simple
+  }
+
+  export class Simple {
+    readonly format = Format.Simple;
+    selector: SimpleSelector;
+
+    constructor(selector: SimpleSelector) {
+      this.selector = selector;
+    }
+  }
+}
+
+export type Selector = Selector.Simple;
+
+export class SimpleSelector {
+  tagName: string | null;
+  id: string | null;
+  classValue: string[];
+
+  constructor(tagName: string | null, id: string | null, classValue: string[]) {
+    this.tagName = tagName;
+    this.id = id;
+    this.classValue = classValue;
+  }
+}
+
+export class Rule {
+  selectors: Selector[];
+  declarations: Declaration[];
+
+  constructor(selectors: Selector[], declarations: Declaration[]) {
+    this.selectors = selectors;
+    this.declarations = declarations;
+  }
+}
+
+export class Stylesheet {
+  rules: Rule[];
+
+  constructor(rules: Rule[]) {
+    this.rules = rules;
+  }
+}
