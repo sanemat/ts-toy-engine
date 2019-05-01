@@ -100,3 +100,11 @@ export class Rule {
     this.declarations = declarations;
   }
 }
+
+export class Stylesheet {
+  rules: Rule[];
+
+  constructor(rules: Rule[]) {
+    this.rules = rules;
+  }
+}
