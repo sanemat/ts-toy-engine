@@ -10,9 +10,9 @@ test("styled node", () => {
 
 test("styled node hits", () => {
   const expected = new CssValue.Keyword("example");
-  expect(
-    new StyledNode(text("no mean"), new Map([["target", expected]]), []).value("target")
-  ).toEqual(expected);
+  expect(new StyledNode(text("no mean"), new Map([["target", expected]]), []).value("target")).toBe(
+    expected
+  );
 });
 
 test("styled node does not hit", () => {
@@ -20,5 +20,5 @@ test("styled node does not hit", () => {
     new StyledNode(text("no mean"), new Map([["some", new CssValue.Keyword("example")]]), []).value(
       "different"
     )
-  ).toEqual(null);
+  ).toBeNull();
 });
