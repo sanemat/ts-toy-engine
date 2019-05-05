@@ -41,6 +41,15 @@ test("matches simple selector different tag", () => {
   ).toBe(false);
 });
 
+test("matches simple selector same tag", () => {
+  expect(
+    matchesSimpleSelector(
+      new ElementData("target", new Map([])),
+      new SimpleSelector("target", null, [])
+    )
+  ).toBe(true);
+});
+
 test("matches simple selector different id", () => {
   expect(
     matchesSimpleSelector(
@@ -48,6 +57,15 @@ test("matches simple selector different id", () => {
       new SimpleSelector(null, "some", [])
     )
   ).toBe(false);
+});
+
+test("matches simple selector same id", () => {
+  expect(
+    matchesSimpleSelector(
+      new ElementData("no mean1", new Map([["id", "target"]])),
+      new SimpleSelector(null, "target", [])
+    )
+  ).toBe(true);
 });
 
 test("matches simple selector different class", () => {
