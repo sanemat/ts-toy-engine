@@ -31,3 +31,12 @@ test("matches simple selector", () => {
     )
   ).toBe(true);
 });
+
+test("matches simple selector different tag", () => {
+  expect(
+    matchesSimpleSelector(
+      new ElementData("some", new Map([])),
+      new SimpleSelector("other", null, [])
+    )
+  ).toBe(false);
+});

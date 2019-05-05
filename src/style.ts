@@ -21,5 +21,9 @@ export class StyledNode {
 
 // returns true if there are no none-match
 export function matchesSimpleSelector(elem: ElementData, selector: SimpleSelector): boolean {
+  const tagName = selector.tagName;
+  if (tagName && tagName !== elem.tagName) {
+    return false;
+  }
   return true;
 }
