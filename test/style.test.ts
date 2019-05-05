@@ -1,6 +1,6 @@
-import { StyledNode } from "../src/style";
-import { CssValue, Unit } from "../src/css";
-import { text } from "../src/dom";
+import { matchesSimpleSelector, StyledNode } from "../src/style";
+import { CssValue, SimpleSelector, Unit } from "../src/css";
+import { ElementData, text } from "../src/dom";
 
 test("styled node", () => {
   expect(
@@ -21,4 +21,13 @@ test("styled node does not hit", () => {
       "different"
     )
   ).toBeNull();
+});
+
+test("matches simple selector", () => {
+  expect(
+    matchesSimpleSelector(
+      new ElementData("no mean", new Map([])),
+      new SimpleSelector(null, null, [])
+    )
+  ).toBe(true);
 });
