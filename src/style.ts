@@ -30,5 +30,20 @@ export function matchesSimpleSelector(elem: ElementData, selector: SimpleSelecto
   if (id && id !== elem.id()) {
     return false;
   }
+
+  const classes = selector.classValue;
+  if (classes.length !== 0) {
+    let included = false;
+    for (let className of classes) {
+      if (elem.classes().has(className)) {
+        included = true;
+        break;
+      }
+    }
+    if (!included) {
+      return false;
+    }
+  }
+
   return true;
 }

@@ -49,3 +49,21 @@ test("matches simple selector different id", () => {
     )
   ).toBe(false);
 });
+
+test("matches simple selector different class", () => {
+  expect(
+    matchesSimpleSelector(
+      new ElementData("no mean1", new Map([["class", "other1 other2"]])),
+      new SimpleSelector(null, null, ["some1", "some2"])
+    )
+  ).toBe(false);
+});
+
+test("matches simple selector same class", () => {
+  expect(
+    matchesSimpleSelector(
+      new ElementData("no mean1", new Map([["class", "target1 other2"]])),
+      new SimpleSelector(null, null, ["target1", "some2"])
+    )
+  ).toBe(true);
+});
