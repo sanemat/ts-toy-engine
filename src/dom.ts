@@ -45,6 +45,10 @@ export class ElementData {
     this.tagName = tagName;
     this.attributes = attributes;
   }
+
+  id(): string | null {
+    return this.attributes.get("id") || null;
+  }
 }
 
 export function text(data: string): DomNode {
