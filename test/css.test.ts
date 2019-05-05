@@ -10,11 +10,11 @@ import {
 } from "../src/css";
 
 test("a", () => {
-  expect(new Color(0, 0, 0, 255).a).toEqual(255);
+  expect(new Color(0, 0, 0, 255).a).toBe(255);
 });
 
 test("keyword foo", () => {
-  expect(new CssValue.Keyword("foo").keyword).toEqual("foo");
+  expect(new CssValue.Keyword("foo").keyword).toBe("foo");
 });
 
 const switchFunction = (v: CssValue) => {
@@ -32,16 +32,16 @@ const switchFunction = (v: CssValue) => {
 
 test("pattern keyword", () => {
   const keyword = new CssValue.Keyword("foo");
-  expect(switchFunction(keyword)).toEqual("keyword");
+  expect(switchFunction(keyword)).toBe("keyword");
 });
 
 test("length 6", () => {
-  expect(new CssValue.Length(6, Unit.Px).length).toEqual(6);
+  expect(new CssValue.Length(6, Unit.Px).length).toBe(6);
 });
 
 test("color white", () => {
   const white = new Color(255, 255, 255, 255);
-  expect(new CssValue.ColorValue(white).colorValue).toEqual(white);
+  expect(new CssValue.ColorValue(white).colorValue).toBe(white);
 });
 
 test("declaration", () => {
