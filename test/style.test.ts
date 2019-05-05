@@ -85,3 +85,21 @@ test("matches simple selector same class", () => {
     )
   ).toBe(true);
 });
+
+test("matches simple selector same tag, other id", () => {
+  expect(
+    matchesSimpleSelector(
+      new ElementData("same", new Map([["id", "other"]])),
+      new SimpleSelector("same", "some", [])
+    )
+  ).toBe(false);
+});
+
+test("matches simple selector same tag, same id, different class", () => {
+  expect(
+    matchesSimpleSelector(
+      new ElementData("same", new Map([["id", "same"], ["class", "other1 other2"]])),
+      new SimpleSelector("same", "same", ["some1", "some2"])
+    )
+  ).toBe(false);
+});
