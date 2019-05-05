@@ -49,6 +49,14 @@ export class ElementData {
   id(): string | null {
     return this.attributes.get("id") || null;
   }
+
+  classes(): Set<string> {
+    const classes = this.attributes.get("class");
+    if (!classes) {
+      return new Set([]);
+    }
+    return new Set(classes.split(" "));
+  }
 }
 
 export function text(data: string): DomNode {
