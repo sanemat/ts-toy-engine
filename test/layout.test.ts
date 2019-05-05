@@ -14,7 +14,7 @@ test("edge sizes", () => {
 test("dimensions", () => {
   const target = new Rect(1, 2, 3, 4);
   const edge = new EdgeSizes(1, 2, 3, 4);
-  expect(new Dimensions(target, edge, edge, edge).content).toEqual(target);
+  expect(new Dimensions(target, edge, edge, edge).content).toBe(target);
 });
 
 const oneStyledNode = new StyledNode(
@@ -24,15 +24,15 @@ const oneStyledNode = new StyledNode(
 );
 
 test("block node", () => {
-  expect(new BoxType.BlockNode(oneStyledNode).format).toEqual(BoxType.Format.BlockNode);
+  expect(new BoxType.BlockNode(oneStyledNode).format).toBe(BoxType.Format.BlockNode);
 });
 
 test("inline node", () => {
-  expect(new BoxType.InlineNode(oneStyledNode).format).toEqual(BoxType.Format.InlineNode);
+  expect(new BoxType.InlineNode(oneStyledNode).format).toBe(BoxType.Format.InlineNode);
 });
 
 test("anonymous block", () => {
-  expect(new BoxType.AnonymousBlock().format).toEqual(BoxType.Format.AnonymousBlock);
+  expect(new BoxType.AnonymousBlock().format).toBe(BoxType.Format.AnonymousBlock);
 });
 
 test("layout box", () => {
