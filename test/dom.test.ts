@@ -28,3 +28,19 @@ test("element id found", () => {
 test("element id not found", () => {
   expect(new ElementData("no mean", new Map([["no mean", "no mean"]])).id()).toBeNull();
 });
+
+test("element class 1 found", () => {
+  expect(new ElementData("no mean", new Map([["class", "target1"]])).classes()).toEqual(
+    new Set(["target1"])
+  );
+});
+
+test("element class 2 found", () => {
+  expect(new ElementData("no mean", new Map([["class", "target1 target2"]])).classes()).toEqual(
+    new Set(["target1", "target2"])
+  );
+});
+
+test("element class 0 found", () => {
+  expect(new ElementData("no mean", new Map([])).classes()).toEqual(new Set([]));
+});
