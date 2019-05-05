@@ -1,5 +1,5 @@
-import { matchesSimpleSelector, StyledNode } from "../src/style";
-import { CssValue, SimpleSelector, Unit } from "../src/css";
+import { matches, matchesSimpleSelector, StyledNode } from "../src/style";
+import { CssValue, Selector, SimpleSelector, Unit } from "../src/css";
 import { ElementData, text } from "../src/dom";
 
 test("styled node", () => {
@@ -102,4 +102,31 @@ test("matches simple selector same tag, same id, different class", () => {
       new SimpleSelector("same", "same", ["some1", "some2"])
     )
   ).toBe(false);
+});
+
+test("matches no none-match", () => {
+  expect(
+    matches(
+      new ElementData("no mean", new Map([])),
+      new Selector.Simple(new SimpleSelector(null, null, []))
+    )
+  ).toBe(true);
+});
+
+test("matches none-match", () => {
+  expect(
+    matches(
+      new ElementData("no mean", new Map([])),
+      new Selector.Simple(new SimpleSelector(null, "some", []))
+    )
+  ).toBe(false);
+});
+
+test("matches match", () => {
+  expect(
+    matches(
+      new ElementData("no mean", new Map([["id", "target"]])),
+      new Selector.Simple(new SimpleSelector(null, "target", []))
+    )
+  ).toBe(true);
 });
