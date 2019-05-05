@@ -1,5 +1,5 @@
 import { DomNode, ElementData } from "./dom";
-import { CssValue, SimpleSelector } from "./css";
+import { CssValue, Selector, SimpleSelector } from "./css";
 
 type PropertyMap = Map<string, CssValue>;
 
@@ -46,4 +46,11 @@ export function matchesSimpleSelector(elem: ElementData, selector: SimpleSelecto
   }
 
   return true;
+}
+
+export function matches(elem: ElementData, selector: Selector): boolean {
+  switch (selector.format) {
+    case Selector.Format.Simple:
+      return matchesSimpleSelector(elem, selector.selector);
+  }
 }
