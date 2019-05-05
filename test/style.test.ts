@@ -40,3 +40,12 @@ test("matches simple selector different tag", () => {
     )
   ).toBe(false);
 });
+
+test("matches simple selector different id", () => {
+  expect(
+    matchesSimpleSelector(
+      new ElementData("no mean1", new Map([["id", "some"]])),
+      new SimpleSelector(null, "other", [])
+    )
+  ).toBe(false);
+});

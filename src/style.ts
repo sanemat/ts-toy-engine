@@ -25,5 +25,10 @@ export function matchesSimpleSelector(elem: ElementData, selector: SimpleSelecto
   if (tagName && tagName !== elem.tagName) {
     return false;
   }
+
+  const id = selector.id;
+  if (id && id !== elem.id()) {
+    return false;
+  }
   return true;
 }
