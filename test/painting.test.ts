@@ -31,7 +31,7 @@ test("canvas is filled by white", () => {
 });
 
 test("solid color", () => {
-  expect(new DisplayCommand.SolidColor(white, new Rect(0, 0, 0, 0)).format).toEqual(
+  expect(new DisplayCommand.SolidColor(white, new Rect(0, 0, 0, 0)).format).toBe(
     DisplayCommand.Format.SolidColor
   );
 });
@@ -57,7 +57,7 @@ test("get color", () => {
       ),
       "target"
     )
-  ).toEqual(expectedColor);
+  ).toBe(expectedColor);
 });
 
 test("get no color", () => {
@@ -66,11 +66,11 @@ test("get no color", () => {
       LayoutBox.Create(new BoxType.BlockNode(new StyledNode(text("no mean"), new Map([]), []))),
       "target"
     )
-  ).toEqual(null);
+  ).toBeNull();
 });
 
 test("get no color2", () => {
-  expect(getColor(LayoutBox.Create(new BoxType.AnonymousBlock()), "target")).toEqual(null);
+  expect(getColor(LayoutBox.Create(new BoxType.AnonymousBlock()), "target")).toBeNull();
 });
 
 test("get no color3", () => {
@@ -82,7 +82,7 @@ test("get no color3", () => {
       ),
       "target"
     )
-  ).toEqual(null);
+  ).toBeNull();
 });
 
 const exampleDimensions = new Dimensions(
@@ -119,7 +119,7 @@ test("render background no color", () => {
     displayList,
     LayoutBox.Create(new BoxType.BlockNode(new StyledNode(text("no mean"), new Map(), [])))
   );
-  expect(displayList.length).toEqual(0);
+  expect(displayList.length).toBe(0);
 });
 
 test("render border no border", () => {
@@ -128,7 +128,7 @@ test("render border no border", () => {
     displayList,
     LayoutBox.Create(new BoxType.BlockNode(new StyledNode(text("no mean"), new Map(), [])))
   );
-  expect(displayList.length).toEqual(0);
+  expect(displayList.length).toBe(0);
 });
 
 test("render border with color", () => {
