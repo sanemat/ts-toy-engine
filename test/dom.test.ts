@@ -20,3 +20,11 @@ test("elem", () => {
     new DomNode([], new NodeType.Element(new ElementData("a", new Map([["b", "c"]]))))
   );
 });
+
+test("element id found", () => {
+  expect(new ElementData("no mean", new Map([["id", "target"]])).id()).toEqual("target");
+});
+
+test("element id not found", () => {
+  expect(new ElementData("no mean", new Map([["no mean", "no mean"]])).id()).toBeNull();
+});
