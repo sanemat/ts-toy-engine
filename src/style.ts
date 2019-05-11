@@ -1,5 +1,5 @@
 import { DomNode, ElementData } from "./dom";
-import { CssValue, Rule, Selector, SimpleSelector, Specificity } from "./css";
+import { CssValue, Rule, Selector, SimpleSelector, Specificity, Stylesheet } from "./css";
 
 type PropertyMap = Map<string, CssValue>;
 
@@ -68,4 +68,16 @@ export function matchRule(elem: ElementData, rule: Rule): null | MatchedRule {
     return null;
   }
   return [found.selector.specificity(), rule];
+}
+
+export function matchingRules(elem: ElementData, stylesheet: Stylesheet): MatchedRule[] {
+  return stylesheet.rules
+    .map(rule => {
+      return matchRule(elem, rule);
+    })
+    .filter(
+      (matchedOrNull): matchedOrNull is MatchedRule => {
+        return matchedOrNull !== null;
+      }
+    );
 }

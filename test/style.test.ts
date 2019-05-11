@@ -1,5 +1,5 @@
-import { matches, matchesSimpleSelector, matchRule, StyledNode } from "../src/style";
-import { CssValue, Rule, Selector, SimpleSelector, Unit } from "../src/css";
+import { matches, matchesSimpleSelector, matchingRules, matchRule, StyledNode } from "../src/style";
+import { CssValue, Rule, Selector, SimpleSelector, Stylesheet, Unit } from "../src/css";
 import { ElementData, text } from "../src/dom";
 
 test("styled node", () => {
@@ -149,4 +149,33 @@ test("matchRule match first", () => {
     [1, 0, 0],
     rule
   ]);
+});
+
+test("matchingRules none-match", () => {
+  expect(matchingRules(new ElementData("no mean", new Map([])), new Stylesheet([]))).toEqual([]);
+});
+
+test("matchingRules matches", () => {
+  const rule1 = new Rule(
+    [
+      // specificity a=1, b=0, c=0
+      new Selector.Simple(new SimpleSelector(null, "target", [])),
+      // specificity a=0, b=0, c=1
+      new Selector.Simple(new SimpleSelector("target", null, []))
+    ],
+    []
+  );
+  const rule2 = new Rule(
+    [
+      // specificity a=0, b=0, c=1
+      new Selector.Simple(new SimpleSelector("target", null, []))
+    ],
+    []
+  );
+  expect(
+    matchingRules(
+      new ElementData("target", new Map([["id", "target"]])),
+      new Stylesheet([rule1, rule2])
+    )
+  ).toEqual([[[1, 0, 0], rule1], [[0, 0, 1], rule2]]);
 });
