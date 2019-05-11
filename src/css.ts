@@ -69,6 +69,9 @@ export namespace Selector {
     Simple
   }
   export type Simple = { tag: Format.Simple; value: SimpleSelector };
+  export function Simple(value: SimpleSelector): Simple {
+    return { tag: Format.Simple, value: value };
+  }
 }
 
 export class SimpleSelector {
