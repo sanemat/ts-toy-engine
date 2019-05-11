@@ -53,7 +53,6 @@ test("simple selector", () => {
 });
 
 test("selector simple", () => {
-  // expect(() => {{ "tag": "Simple", "fields": {"value": new SimpleSelector(null, null, [])}}).not.toThrow();
   const simple = { tag: "Simple", fields: { value: new SimpleSelector(null, null, []) } };
   expect(() => simple).not.toThrow();
 });
