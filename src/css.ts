@@ -103,6 +103,7 @@ export class SimpleSelector {
 }
 
 export class Rule {
+  // Because our CSS parser stores the selectors from most- to least-specific
   selectors: Selector[];
   declarations: Declaration[];
 

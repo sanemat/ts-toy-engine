@@ -1,5 +1,5 @@
 import { DomNode, ElementData } from "./dom";
-import { CssValue, Selector, SimpleSelector } from "./css";
+import { CssValue, Rule, Selector, SimpleSelector, Specificity } from "./css";
 
 type PropertyMap = Map<string, CssValue>;
 
@@ -53,4 +53,19 @@ export function matches(elem: ElementData, selector: Selector): boolean {
     case Selector.Format.Simple:
       return matchesSimpleSelector(elem, selector.selector);
   }
+}
+
+export type MatchedRule = [Specificity, Rule];
+
+// If `rule` matches `elem`, return a `MatchedRule`. Otherwise return null.
+export function matchRule(elem: ElementData, rule: Rule): null | MatchedRule {
+  // Find the first (most specific) matching selector.
+  // Because our CSS parser stores the selectors from most- to least-specific,
+  const found = rule.selectors.find(selector => {
+    return matches(elem, selector);
+  });
+  if (found === undefined) {
+    return null;
+  }
+  return [found.selector.specificity(), rule];
 }
