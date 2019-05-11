@@ -63,3 +63,29 @@ test("rule", () => {
 test("stylesheet", () => {
   expect(() => new Stylesheet([])).not.toThrow();
 });
+
+// Examples:
+//
+// *               /* a=0 b=0 c=0 */
+// LI              /* a=0 b=0 c=1 */
+// UL LI           /* a=0 b=0 c=2 */
+// UL OL+LI        /* a=0 b=0 c=3 */
+// H1 + *[REL=up]  /* a=0 b=1 c=1 */
+// UL OL LI.red    /* a=0 b=1 c=3 */
+// LI.red.level    /* a=0 b=2 c=1 */
+// #x34y           /* a=1 b=0 c=0 */
+// #s12:not(FOO)   /* a=1 b=0 c=1 */
+// .foo :is(.bar, #baz)
+//                 /* a=1 b=1 c=0 */
+
+test("specificity li", () => {
+  expect(new SimpleSelector("li", null, []).specificity()).toEqual([0, 0, 1]);
+});
+
+test("specificity li.red.level", () => {
+  expect(new SimpleSelector("li", null, ["red", "level"]).specificity()).toEqual([0, 2, 1]);
+});
+
+test("specificity #x34y", () => {
+  expect(new SimpleSelector(null, "x34y", []).specificity()).toEqual([1, 0, 0]);
+});
