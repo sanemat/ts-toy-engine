@@ -106,27 +106,27 @@ test("matches simple selector same tag, same id, different class", () => {
 
 test("matches no none-match", () => {
   expect(
-    matches(
-      new ElementData("no mean", new Map([])),
-      new Selector.Simple(new SimpleSelector(null, null, []))
-    )
+    matches(new ElementData("no mean", new Map([])), {
+      tag: "Simple",
+      fields: { value: new SimpleSelector(null, null, []) }
+    })
   ).toBe(true);
 });
 
 test("matches none-match", () => {
   expect(
-    matches(
-      new ElementData("no mean", new Map([])),
-      new Selector.Simple(new SimpleSelector(null, "some", []))
-    )
+    matches(new ElementData("no mean", new Map([])), {
+      tag: "Simple",
+      fields: { value: new SimpleSelector(null, "some", []) }
+    })
   ).toBe(false);
 });
 
 test("matches match", () => {
   expect(
-    matches(
-      new ElementData("no mean", new Map([["id", "target"]])),
-      new Selector.Simple(new SimpleSelector(null, "target", []))
-    )
+    matches(new ElementData("no mean", new Map([["id", "target"]])), {
+      tag: "Simple",
+      fields: { value: new SimpleSelector(null, "target", []) }
+    })
   ).toBe(true);
 });
