@@ -62,24 +62,7 @@ export class Declaration {
   }
 }
 
-export type Selector = { tag: "Simple"; fields: { value: SimpleSelector } };
-
-// export namespace Selector {
-//   export enum Format {
-//     Simple
-//   }
-//
-//   export class Simple {
-//     readonly format = Format.Simple;
-//     selector: SimpleSelector;
-//
-//     constructor(selector: SimpleSelector) {
-//       this.selector = selector;
-//     }
-//   }
-// }
-
-// export type Selector = Selector.Simple;
+export type Selector = { tag: "Simple"; value: SimpleSelector };
 
 export class SimpleSelector {
   tagName: string | null;

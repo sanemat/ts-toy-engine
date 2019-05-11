@@ -51,6 +51,6 @@ export function matchesSimpleSelector(elem: ElementData, selector: SimpleSelecto
 export function matches(elem: ElementData, selector: Selector): boolean {
   switch (selector.tag) {
     case "Simple":
-      return matchesSimpleSelector(elem, selector.fields.value);
+      return matchesSimpleSelector(elem, selector.value);
   }
 }

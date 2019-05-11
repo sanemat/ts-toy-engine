@@ -108,7 +108,7 @@ test("matches no none-match", () => {
   expect(
     matches(new ElementData("no mean", new Map([])), {
       tag: "Simple",
-      fields: { value: new SimpleSelector(null, null, []) }
+      value: new SimpleSelector(null, null, [])
     })
   ).toBe(true);
 });
@@ -117,7 +117,7 @@ test("matches none-match", () => {
   expect(
     matches(new ElementData("no mean", new Map([])), {
       tag: "Simple",
-      fields: { value: new SimpleSelector(null, "some", []) }
+      value: new SimpleSelector(null, "some", [])
     })
   ).toBe(false);
 });
@@ -126,7 +126,7 @@ test("matches match", () => {
   expect(
     matches(new ElementData("no mean", new Map([["id", "target"]])), {
       tag: "Simple",
-      fields: { value: new SimpleSelector(null, "target", []) }
+      value: new SimpleSelector(null, "target", [])
     })
   ).toBe(true);
 });
