@@ -62,8 +62,6 @@ export class Declaration {
   }
 }
 
-export type Selector = Selector.Simple;
-
 export namespace Selector {
   export enum Format {
     Simple
@@ -73,6 +71,8 @@ export namespace Selector {
     return { tag: Format.Simple, value: value };
   }
 }
+
+export type Selector = Selector.Simple;
 
 export class SimpleSelector {
   tagName: string | null;
