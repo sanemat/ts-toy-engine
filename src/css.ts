@@ -62,9 +62,11 @@ export class Declaration {
   }
 }
 
-export type Selector = { tag: "Simple"; value: SimpleSelector };
+export type Selector = Selector.Simple;
 
-export namespace Selector {}
+export namespace Selector {
+  export type Simple = { tag: "Simple"; value: SimpleSelector };
+}
 
 export class SimpleSelector {
   tagName: string | null;
