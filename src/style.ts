@@ -50,7 +50,7 @@ export function matchesSimpleSelector(elem: ElementData, selector: SimpleSelecto
 
 export function matches(elem: ElementData, selector: Selector): boolean {
   switch (selector.tag) {
-    case "Simple":
+    case Selector.Format.Simple:
       return matchesSimpleSelector(elem, selector.value);
   }
 }

@@ -65,7 +65,10 @@ export class Declaration {
 export type Selector = Selector.Simple;
 
 export namespace Selector {
-  export type Simple = { tag: "Simple"; value: SimpleSelector };
+  export enum Format {
+    Simple
+  }
+  export type Simple = { tag: Format.Simple; value: SimpleSelector };
 }
 
 export class SimpleSelector {

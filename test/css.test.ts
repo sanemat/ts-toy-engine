@@ -53,7 +53,10 @@ test("simple selector", () => {
 });
 
 test("selector simple", () => {
-  const simple = { tag: "Simple", fields: { value: new SimpleSelector(null, null, []) } };
+  const simple = {
+    tag: Selector.Format.Simple,
+    fields: { value: new SimpleSelector(null, null, []) }
+  };
   expect(() => simple).not.toThrow();
 });
 
