@@ -1,5 +1,5 @@
-import { matches, matchesSimpleSelector, StyledNode } from "../src/style";
-import { CssValue, Selector, SimpleSelector, Unit } from "../src/css";
+import { matches, matchesSimpleSelector, matchRule, StyledNode } from "../src/style";
+import { CssValue, Rule, Selector, SimpleSelector, Unit } from "../src/css";
 import { ElementData, text } from "../src/dom";
 
 test("styled node", () => {
@@ -129,4 +129,24 @@ test("matches match", () => {
       new Selector.Simple(new SimpleSelector(null, "target", []))
     )
   ).toBe(true);
+});
+
+test("matchRule none-match", () => {
+  expect(matchRule(new ElementData("no mean", new Map([])), new Rule([], []))).toBeNull();
+});
+
+test("matchRule match first", () => {
+  const rule = new Rule(
+    [
+      // specificity a=1, b=0, c=0
+      new Selector.Simple(new SimpleSelector(null, "target", [])),
+      // specificity a=0, b=0, c=1
+      new Selector.Simple(new SimpleSelector("target", null, []))
+    ],
+    []
+  );
+  expect(matchRule(new ElementData("target", new Map([["id", "target"]])), rule)).toEqual([
+    [1, 0, 0],
+    rule
+  ]);
 });
