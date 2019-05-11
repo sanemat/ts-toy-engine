@@ -64,6 +64,8 @@ export class Declaration {
 
 export type Selector = { tag: "Simple"; value: SimpleSelector };
 
+export namespace Selector {}
+
 export class SimpleSelector {
   tagName: string | null;
   id: string | null;
