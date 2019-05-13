@@ -6,7 +6,8 @@ import {
   matchingRules,
   matchRule,
   specifiedValues,
-  StyledNode
+  StyledNode,
+  styleTree
 } from "../src/style";
 import {
   CssValue,
@@ -17,7 +18,7 @@ import {
   Stylesheet,
   Unit
 } from "../src/css";
-import { ElementData, text } from "../src/dom";
+import { elem, ElementData, text } from "../src/dom";
 
 test("styled node", () => {
   expect(
@@ -284,4 +285,38 @@ test("sort compare matched rule", () => {
   const left: MatchedRule = [[0, 0, 0], new Rule([], [])];
   const right: MatchedRule = [[1, 0, 0], new Rule([], [])];
   expect([left, right].sort(compareMatchedRule)).toEqual([left, right]);
+});
+
+test("style node text", () => {
+  expect(styleTree(text("hoge"), new Stylesheet([]))).toEqual(
+    new StyledNode(text("hoge"), new Map([]), [])
+  );
+});
+
+test("style node element", () => {
+  const rule = new Rule(
+    [new Selector.Simple(new SimpleSelector(null, "target", []))],
+    [new Declaration("some", new CssValue.Keyword("foo"))]
+  );
+  const element = elem("no mean", new Map([["id", "target"]]), []);
+  expect(styleTree(element, new Stylesheet([rule]))).toEqual(
+    new StyledNode(element, new Map([["some", new CssValue.Keyword("foo")]]), [])
+  );
+});
+
+test("style node children", () => {
+  const rule = new Rule(
+    [new Selector.Simple(new SimpleSelector(null, "target", []))],
+    [new Declaration("some", new CssValue.Keyword("foo"))]
+  );
+  const element = elem("no mean", new Map([]), [elem("no mean", new Map([["id", "target"]]), [])]);
+  expect(styleTree(element, new Stylesheet([rule]))).toEqual(
+    new StyledNode(element, new Map([]), [
+      new StyledNode(
+        elem("no mean", new Map([["id", "target"]]), []),
+        new Map([["some", new CssValue.Keyword("foo")]]),
+        []
+      )
+    ])
+  );
 });
