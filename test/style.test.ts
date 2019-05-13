@@ -1,5 +1,22 @@
-import { matches, matchesSimpleSelector, matchingRules, matchRule, StyledNode } from "../src/style";
-import { CssValue, Rule, Selector, SimpleSelector, Stylesheet, Unit } from "../src/css";
+import {
+  compareMatchedRule,
+  MatchedRule,
+  matches,
+  matchesSimpleSelector,
+  matchingRules,
+  matchRule,
+  specifiedValues,
+  StyledNode
+} from "../src/style";
+import {
+  CssValue,
+  Declaration,
+  Rule,
+  Selector,
+  SimpleSelector,
+  Stylesheet,
+  Unit
+} from "../src/css";
 import { ElementData, text } from "../src/dom";
 
 test("styled node", () => {
@@ -178,4 +195,93 @@ test("matchingRules matches", () => {
       new Stylesheet([rule1, rule2])
     )
   ).toEqual([[[1, 0, 0], rule1], [[0, 0, 1], rule2]]);
+});
+
+test("specifiedValues none", () => {
+  expect(specifiedValues(new ElementData("no mean", new Map([])), new Stylesheet([]))).toEqual(
+    new Map([])
+  );
+});
+
+test("specifiedValues", () => {
+  const rule1 = new Rule(
+    [
+      // specificity a=1, b=0, c=0
+      new Selector.Simple(new SimpleSelector(null, "target", [])),
+      // specificity a=0, b=0, c=1
+      new Selector.Simple(new SimpleSelector("target", null, []))
+    ],
+    [
+      new Declaration("override", new CssValue.Keyword("current")),
+      new Declaration("not-override1", new CssValue.Keyword("value1"))
+    ]
+  );
+  const rule2 = new Rule(
+    [
+      // specificity a=0, b=0, c=1
+      new Selector.Simple(new SimpleSelector("target", null, []))
+    ],
+    [
+      new Declaration("override", new CssValue.Keyword("prev")),
+      new Declaration("not-override2", new CssValue.Keyword("value2"))
+    ]
+  );
+  expect(
+    specifiedValues(
+      new ElementData("target", new Map([["id", "target"]])),
+      new Stylesheet([rule1, rule2])
+    )
+  ).toEqual(
+    new Map([
+      ["not-override1", new CssValue.Keyword("value1")],
+      ["not-override2", new CssValue.Keyword("value2")],
+      ["override", new CssValue.Keyword("current")]
+    ])
+  );
+});
+
+test("compare matched rule right a", () => {
+  expect(
+    compareMatchedRule([[0, 0, 0], new Rule([], [])], [[1, 0, 0], new Rule([], [])])
+  ).toBeLessThan(0);
+});
+
+test("compare matched rule left a", () => {
+  expect(
+    compareMatchedRule([[1, 0, 0], new Rule([], [])], [[0, 0, 0], new Rule([], [])])
+  ).toBeGreaterThan(0);
+});
+
+test("compare matched rule right b", () => {
+  expect(
+    compareMatchedRule([[0, 0, 0], new Rule([], [])], [[0, 1, 0], new Rule([], [])])
+  ).toBeLessThan(0);
+});
+
+test("compare matched rule left b", () => {
+  expect(
+    compareMatchedRule([[0, 1, 0], new Rule([], [])], [[0, 0, 0], new Rule([], [])])
+  ).toBeGreaterThan(0);
+});
+
+test("compare matched rule right c", () => {
+  expect(
+    compareMatchedRule([[0, 0, 0], new Rule([], [])], [[0, 0, 1], new Rule([], [])])
+  ).toBeLessThan(0);
+});
+
+test("compare matched rule left c", () => {
+  expect(
+    compareMatchedRule([[0, 0, 1], new Rule([], [])], [[0, 0, 0], new Rule([], [])])
+  ).toBeGreaterThan(0);
+});
+
+test("compare matched rule same", () => {
+  expect(compareMatchedRule([[0, 0, 0], new Rule([], [])], [[0, 0, 0], new Rule([], [])])).toBe(0);
+});
+
+test("sort compare matched rule", () => {
+  const left: MatchedRule = [[0, 0, 0], new Rule([], [])];
+  const right: MatchedRule = [[1, 0, 0], new Rule([], [])];
+  expect([left, right].sort(compareMatchedRule)).toEqual([left, right]);
 });

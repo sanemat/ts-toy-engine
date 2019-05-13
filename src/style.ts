@@ -81,3 +81,31 @@ export function matchingRules(elem: ElementData, stylesheet: Stylesheet): Matche
       }
     );
 }
+
+export function compareMatchedRule(left: MatchedRule, right: MatchedRule): number {
+  const [[la, lb, lc]] = left;
+  const [[ra, rb, rc]] = right;
+  if (la !== ra) {
+    return la - ra;
+  } else if (lb !== rb) {
+    return lb - rb;
+  } else if (lc !== rc) {
+    return lc - rc;
+  }
+  return 0;
+}
+
+// Apply styles to a single element, returning the specified styles.
+//
+// To do: Allow multiple UA/author/user stylesheets, and implement the cascade.
+export function specifiedValues(elem: ElementData, stylesheet: Stylesheet): PropertyMap {
+  const values = new Map<string, CssValue>([]);
+  const rules = matchingRules(elem, stylesheet);
+  rules.sort(compareMatchedRule);
+  for (const [, rule] of rules) {
+    for (const declaration of rule.declarations) {
+      values.set(declaration.name, declaration.value);
+    }
+  }
+  return values;
+}
