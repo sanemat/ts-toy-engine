@@ -1,4 +1,4 @@
-import { DomNode, ElementData } from "./dom";
+import { DomNode, ElementData, NodeType } from "./dom";
 import { CssValue, Rule, Selector, SimpleSelector, Specificity, Stylesheet } from "./css";
 
 type PropertyMap = Map<string, CssValue>;
@@ -108,4 +108,25 @@ export function specifiedValues(elem: ElementData, stylesheet: Stylesheet): Prop
     }
   }
   return values;
+}
+
+// Apply a stylesheet to an entire DOM tree, returning a StyledNode tree.
+export function styleTree(root: DomNode, stylesheet: Stylesheet): StyledNode {
+  switch (root.nodeType.format) {
+    case NodeType.Format.Text:
+      return new StyledNode(
+        root,
+        new Map([]),
+        // NOTE: text node has children??? I'm not sure
+        []
+      );
+    case NodeType.Format.Element:
+      return new StyledNode(
+        root,
+        specifiedValues(root.nodeType.element, stylesheet),
+        root.children.map(child => {
+          return styleTree(child, stylesheet);
+        })
+      );
+  }
 }
