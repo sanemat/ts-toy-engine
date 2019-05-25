@@ -3,6 +3,12 @@ import { CssValue, Rule, Selector, SimpleSelector, Specificity, Stylesheet } fro
 
 type PropertyMap = Map<string, CssValue>;
 
+export enum Display {
+  Inline,
+  Block,
+  None
+}
+
 export class StyledNode {
   node: DomNode;
   specifiedValues: PropertyMap;
@@ -16,6 +22,25 @@ export class StyledNode {
 
   value(name: string): CssValue | null {
     return this.specifiedValues.get(name) || null;
+  }
+
+  display(): Display {
+    const displayValue = this.value("display");
+    if (displayValue === null) {
+      return Display.Inline;
+    }
+    switch (displayValue.format) {
+      case CssValue.Format.Keyword:
+        switch (displayValue.keyword) {
+          case "block":
+            return Display.Block;
+          case "none":
+            return Display.None;
+          default:
+            return Display.Inline;
+        }
+    }
+    return Display.Inline;
   }
 }
 

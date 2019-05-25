@@ -1,5 +1,6 @@
 import {
   compareMatchedRule,
+  Display,
   MatchedRule,
   matches,
   matchesSimpleSelector,
@@ -10,6 +11,7 @@ import {
   styleTree
 } from "../src/style";
 import {
+  Color,
   CssValue,
   Declaration,
   Rule,
@@ -319,4 +321,50 @@ test("style node children", () => {
       )
     ])
   );
+});
+
+test("style node display inline default", () => {
+  expect(new StyledNode(elem("no mean", new Map([]), []), new Map([]), []).display()).toBe(
+    Display.Inline
+  );
+});
+
+test("style node display none", () => {
+  expect(
+    new StyledNode(
+      elem("no mean", new Map([["id", "target"]]), []),
+      new Map([["display", new CssValue.Keyword("none")]]),
+      []
+    ).display()
+  ).toBe(Display.None);
+});
+
+test("style node display block", () => {
+  expect(
+    new StyledNode(
+      elem("no mean", new Map([["id", "target"]]), []),
+      new Map([["display", new CssValue.Keyword("block")]]),
+      []
+    ).display()
+  ).toBe(Display.Block);
+});
+
+test("style node display inline", () => {
+  expect(
+    new StyledNode(
+      elem("no mean", new Map([["id", "target"]]), []),
+      new Map([["display", new CssValue.Keyword("no mean")]]),
+      []
+    ).display()
+  ).toBe(Display.Inline);
+});
+
+test("style node display inline2", () => {
+  expect(
+    new StyledNode(
+      elem("no mean", new Map([["id", "target"]]), []),
+      new Map([["display", new CssValue.ColorValue(new Color(0, 0, 0, 0))]]),
+      []
+    ).display()
+  ).toBe(Display.Inline);
 });
