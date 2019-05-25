@@ -119,4 +119,21 @@ export class LayoutBox {
       []
     );
   }
+
+  // NOTE: This may modify this.children :trollface:
+  getInlineContainer(): LayoutBox {
+    switch (this.boxType.format) {
+      case BoxType.Format.AnonymousBlock:
+      case BoxType.Format.InlineNode:
+        return this;
+      case BoxType.Format.BlockNode:
+        if (
+          this.children.length === 0 ||
+          this.children[this.children.length - 1].boxType.format !== BoxType.Format.AnonymousBlock
+        ) {
+          this.children.push(LayoutBox.Create(new BoxType.AnonymousBlock()));
+        }
+        return this.children[this.children.length - 1];
+    }
+  }
 }
