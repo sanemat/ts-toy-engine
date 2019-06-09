@@ -1,6 +1,6 @@
-import { BoxType, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
+import { BoxType, buildLayoutTree, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
-import { text } from "../src/dom";
+import { elem, text } from "../src/dom";
 import { CssValue } from "../src/css";
 
 test("rect", () => {
@@ -144,5 +144,124 @@ test("LayoutBox#getInlineContainer block node 2", () => {
   );
   expect(layoutBoxBlockNode.getInlineContainer()).toEqual(
     LayoutBox.Create(new BoxType.AnonymousBlock())
+  );
+});
+
+test("buildLayoutTree 1", () => {
+  const displayNone = new StyledNode(
+    elem("no mean", new Map([["id", "target"]]), []),
+    new Map([["display", new CssValue.Keyword("none")]]),
+    []
+  );
+  expect(() => {
+    buildLayoutTree(displayNone);
+  }).toThrow();
+});
+
+test("buildLayoutTree 2", () => {
+  const displayBlock = new StyledNode(
+    elem("no mean", new Map([["id", "target"]]), []),
+    new Map([["display", new CssValue.Keyword("block")]]),
+    []
+  );
+  expect(buildLayoutTree(displayBlock)).toEqual(
+    LayoutBox.Create(new BoxType.BlockNode(displayBlock))
+  );
+});
+
+test("buildLayoutTree 3", () => {
+  const displayInline = new StyledNode(
+    elem("no mean", new Map([["id", "target"]]), []),
+    new Map([["display", new CssValue.Keyword("no mean")]]),
+    []
+  );
+  expect(buildLayoutTree(displayInline)).toEqual(
+    LayoutBox.Create(new BoxType.InlineNode(displayInline))
+  );
+});
+
+test("buildLayoutTree 4", () => {
+  const childDisplayBlock = new StyledNode(
+    elem("no mean", new Map([["id", "target2"]]), []),
+    new Map([["display", new CssValue.Keyword("block")]]),
+    []
+  );
+  const displayBlock = new StyledNode(
+    elem("no mean", new Map([["id", "target"]]), []),
+    new Map([["display", new CssValue.Keyword("block")]]),
+    [childDisplayBlock]
+  );
+  expect(buildLayoutTree(displayBlock)).toEqual(
+    new LayoutBox(
+      new Dimensions(
+        new Rect(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0)
+      ),
+      new BoxType.BlockNode(displayBlock),
+      [LayoutBox.Create(new BoxType.BlockNode(childDisplayBlock))]
+    )
+  );
+});
+
+test("buildLayoutTree 5", () => {
+  const childDisplayInline = new StyledNode(
+    elem("no mean", new Map([["id", "target2"]]), []),
+    new Map([["display", new CssValue.Keyword("no mean")]]),
+    []
+  );
+  const displayBlock = new StyledNode(
+    elem("no mean", new Map([["id", "target"]]), []),
+    new Map([["display", new CssValue.Keyword("block")]]),
+    [childDisplayInline]
+  );
+  expect(buildLayoutTree(displayBlock)).toEqual(
+    new LayoutBox(
+      new Dimensions(
+        new Rect(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0)
+      ),
+      new BoxType.BlockNode(displayBlock),
+      [
+        new LayoutBox(
+          new Dimensions(
+            new Rect(0, 0, 0, 0),
+            new EdgeSizes(0, 0, 0, 0),
+            new EdgeSizes(0, 0, 0, 0),
+            new EdgeSizes(0, 0, 0, 0)
+          ),
+          new BoxType.AnonymousBlock(),
+          [LayoutBox.Create(new BoxType.InlineNode(childDisplayInline))]
+        )
+      ]
+    )
+  );
+});
+
+test("buildLayoutTree 6", () => {
+  const childDisplayNone = new StyledNode(
+    elem("no mean", new Map([["id", "target2"]]), []),
+    new Map([["display", new CssValue.Keyword("none")]]),
+    []
+  );
+  const displayBlock = new StyledNode(
+    elem("no mean", new Map([["id", "target"]]), []),
+    new Map([["display", new CssValue.Keyword("block")]]),
+    [childDisplayNone]
+  );
+  expect(buildLayoutTree(displayBlock)).toEqual(
+    new LayoutBox(
+      new Dimensions(
+        new Rect(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0),
+        new EdgeSizes(0, 0, 0, 0)
+      ),
+      new BoxType.BlockNode(displayBlock),
+      []
+    )
   );
 });

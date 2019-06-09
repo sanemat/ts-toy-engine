@@ -1,4 +1,4 @@
-import { StyledNode } from "./style";
+import { Display, StyledNode } from "./style";
 
 export class Rect {
   x: number;
@@ -136,4 +136,36 @@ export class LayoutBox {
         return this.children[this.children.length - 1];
     }
   }
+}
+
+export function buildLayoutTree(styleNode: StyledNode): LayoutBox {
+  let root: LayoutBox;
+  switch (styleNode.display()) {
+    case Display.None: // NOTE: I'm not sure "Uncovered Line"
+      throw Error("Root node has display: none.");
+    case Display.Block:
+      root = LayoutBox.Create(new BoxType.BlockNode(styleNode));
+      break;
+    case Display.Inline:
+      root = LayoutBox.Create(new BoxType.InlineNode(styleNode));
+      break;
+    default:
+      /* istanbul ignore next */
+      throw Error("never");
+  }
+
+  for (const child of styleNode.children) {
+    switch (child.display()) {
+      case Display.Inline:
+        root.getInlineContainer().children.push(buildLayoutTree(child));
+        break;
+      case Display.Block:
+        root.children.push(buildLayoutTree(child));
+        break;
+      case Display.None:
+        // do nothing
+        break;
+    }
+  }
+  return root;
 }
