@@ -265,3 +265,21 @@ test("buildLayoutTree 6", () => {
     )
   );
 });
+
+test("getStyleNode anonymous block", () => {
+  expect(() => {
+    LayoutBox.Create(new BoxType.AnonymousBlock()).getStyleNode();
+  }).toThrow();
+});
+
+test("getStyleNode block node", () => {
+  expect(LayoutBox.Create(new BoxType.BlockNode(oneStyledNode)).getStyleNode()).toEqual(
+    oneStyledNode
+  );
+});
+
+test("getStyleNode inline node", () => {
+  expect(LayoutBox.Create(new BoxType.InlineNode(oneStyledNode)).getStyleNode()).toEqual(
+    oneStyledNode
+  );
+});

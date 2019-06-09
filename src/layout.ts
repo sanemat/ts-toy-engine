@@ -136,6 +136,16 @@ export class LayoutBox {
         return this.children[this.children.length - 1];
     }
   }
+
+  getStyleNode(): StyledNode {
+    switch (this.boxType.format) {
+      case BoxType.Format.AnonymousBlock:
+        throw Error("Anonymous block box has no style node");
+      case BoxType.Format.BlockNode:
+      case BoxType.Format.InlineNode:
+        return this.boxType.styledNode;
+    }
+  }
 }
 
 export function buildLayoutTree(styleNode: StyledNode): LayoutBox {
