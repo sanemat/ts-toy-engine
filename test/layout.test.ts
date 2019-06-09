@@ -78,3 +78,71 @@ test("Dimensions#borderBox", () => {
 test("Dimensions#marginBox", () => {
   expect(exampleDimensions.marginBox()).toEqual(new Rect(14, 18, 20, 32));
 });
+
+test("LayoutBox#getInlineContainer anonymous block", () => {
+  const layoutBoxAnonymousBlock = new LayoutBox(
+    new Dimensions(
+      new Rect(1, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0)
+    ),
+    new BoxType.AnonymousBlock(),
+    []
+  );
+  expect(layoutBoxAnonymousBlock.getInlineContainer()).toEqual(layoutBoxAnonymousBlock);
+});
+
+test("LayoutBox#getInlineContainer inline node", () => {
+  const layoutBoxInlineNode = new LayoutBox(
+    new Dimensions(
+      new Rect(1, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0)
+    ),
+    new BoxType.InlineNode(oneStyledNode),
+    []
+  );
+  expect(layoutBoxInlineNode.getInlineContainer()).toEqual(layoutBoxInlineNode);
+});
+
+test("LayoutBox#getInlineContainer block node 1", () => {
+  const layoutBoxAnonymousBlock = new LayoutBox(
+    new Dimensions(
+      new Rect(1, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0)
+    ),
+    new BoxType.AnonymousBlock(),
+    []
+  );
+  const layoutBoxBlockNode = new LayoutBox(
+    new Dimensions(
+      new Rect(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0)
+    ),
+    new BoxType.BlockNode(oneStyledNode),
+    [layoutBoxAnonymousBlock]
+  );
+  expect(layoutBoxBlockNode.getInlineContainer()).toEqual(layoutBoxAnonymousBlock);
+});
+
+test("LayoutBox#getInlineContainer block node 2", () => {
+  const layoutBoxBlockNode = new LayoutBox(
+    new Dimensions(
+      new Rect(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0)
+    ),
+    new BoxType.BlockNode(oneStyledNode),
+    []
+  );
+  expect(layoutBoxBlockNode.getInlineContainer()).toEqual(
+    LayoutBox.Create(new BoxType.AnonymousBlock())
+  );
+});
