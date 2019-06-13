@@ -24,6 +24,10 @@ export class StyledNode {
     return this.specifiedValues.get(name) || null;
   }
 
+  lookup(name: string, fallbackName: string, defaultValue: CssValue): CssValue {
+    return this.value(name) || this.value(fallbackName) || defaultValue;
+  }
+
   display(): Display {
     const displayValue = this.value("display");
     if (displayValue === null) {

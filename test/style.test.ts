@@ -368,3 +368,32 @@ test("style node display inline2", () => {
     ).display()
   ).toBe(Display.Inline);
 });
+
+test("lookup target", () => {
+  const expected = new CssValue.Keyword("example");
+  expect(
+    new StyledNode(text("no mean"), new Map([["target", expected]]), []).lookup(
+      "target",
+      "fallback",
+      new CssValue.Keyword("no mean")
+    )
+  ).toBe(expected);
+});
+
+test("lookup fallback", () => {
+  const expected = new CssValue.Keyword("example");
+  expect(
+    new StyledNode(text("no mean"), new Map([["fallback", expected]]), []).lookup(
+      "no mean",
+      "fallback",
+      new CssValue.Keyword("no mean")
+    )
+  ).toBe(expected);
+});
+
+test("lookup none", () => {
+  const expected = new CssValue.Keyword("example");
+  expect(
+    new StyledNode(text("no mean"), new Map([]), []).lookup("no mean", "no mean2", expected)
+  ).toBe(expected);
+});
