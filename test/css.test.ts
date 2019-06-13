@@ -1,12 +1,12 @@
 import {
   Color,
-  Unit,
   CssValue,
   Declaration,
-  SimpleSelector,
-  Selector,
   Rule,
-  Stylesheet
+  Selector,
+  SimpleSelector,
+  Stylesheet,
+  Unit
 } from "../src/css";
 
 test("a", () => {
@@ -88,4 +88,20 @@ test("specificity li.red.level", () => {
 
 test("specificity #x34y", () => {
   expect(new SimpleSelector(null, "x34y", []).specificity()).toEqual([1, 0, 0]);
+});
+
+test("value to px color", () => {
+  expect(new CssValue.ColorValue(new Color(0, 0, 0, 0)).toPx()).toEqual(0.0);
+});
+
+test("value to px keyword", () => {
+  expect(new CssValue.Keyword("example").toPx()).toEqual(0.0);
+});
+
+test("value to px length em", () => {
+  expect(new CssValue.Length(1.0, Unit.Em).toPx()).toEqual(0.0);
+});
+
+test("value to px length px", () => {
+  expect(new CssValue.Length(1.0, Unit.Px).toPx()).toEqual(1.0);
 });

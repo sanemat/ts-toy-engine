@@ -13,7 +13,8 @@ export class Color {
 }
 
 export enum Unit {
-  Px
+  Px,
+  Em
 }
 
 export namespace CssValue {
@@ -29,6 +30,9 @@ export namespace CssValue {
     constructor(keyword: string) {
       this.keyword = keyword;
     }
+    toPx(): number {
+      return 0.0;
+    }
   }
 
   export class Length {
@@ -39,6 +43,14 @@ export namespace CssValue {
       this.length = length;
       this.unit = unit;
     }
+    toPx(): number {
+      switch (this.unit) {
+        case Unit.Em:
+          return 0.0;
+        case Unit.Px:
+          return this.length;
+      }
+    }
   }
 
   export class ColorValue {
@@ -46,6 +58,10 @@ export namespace CssValue {
     colorValue: Color;
     constructor(colorValue: Color) {
       this.colorValue = colorValue;
+    }
+
+    toPx(): number {
+      return 0.0;
     }
   }
 }
