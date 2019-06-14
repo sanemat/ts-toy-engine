@@ -1,7 +1,7 @@
 import { BoxType, buildLayoutTree, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
 import { StyledNode } from "../src/style";
 import { elem, text } from "../src/dom";
-import { CssValue } from "../src/css";
+import { CssValue, Unit } from "../src/css";
 
 test("rect", () => {
   expect(new Rect(1, 2, 3, 4).height).toBe(4);
@@ -282,4 +282,188 @@ test("getStyleNode inline node", () => {
   expect(LayoutBox.Create(new BoxType.InlineNode(oneStyledNode)).getStyleNode()).toEqual(
     oneStyledNode
   );
+});
+
+test("calculate block width1", () => {
+  const styledNode = new StyledNode(
+    text("obj"),
+    new Map([["width", new CssValue.Length(40, Unit.Px)]]),
+    []
+  );
+  const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
+  const content = new Dimensions(
+    new Rect(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0)
+  );
+  layout.calculateBlockWidth(content);
+  const dimensions = layout.dimensions;
+  expect(dimensions.content.width).toEqual(40);
+  expect(dimensions.padding.left).toEqual(0);
+  expect(dimensions.padding.right).toEqual(0);
+  expect(dimensions.border.left).toEqual(0);
+  expect(dimensions.border.right).toEqual(0);
+  expect(dimensions.margin.left).toEqual(0);
+  expect(dimensions.margin.right).toEqual(-40);
+});
+
+test("calculate block width2", () => {
+  const styledNode = new StyledNode(
+    text("obj"),
+    new Map([
+      ["width", new CssValue.Length(40, Unit.Px) as CssValue],
+      ["margin", new CssValue.Keyword("auto") as CssValue]
+    ]),
+    []
+  );
+  const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
+  const content = new Dimensions(
+    new Rect(0, 0, 50, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0)
+  );
+  layout.calculateBlockWidth(content);
+  const dimensions = layout.dimensions;
+  expect(dimensions.content.width).toEqual(40);
+  expect(dimensions.padding.left).toEqual(0);
+  expect(dimensions.padding.right).toEqual(0);
+  expect(dimensions.border.left).toEqual(0);
+  expect(dimensions.border.right).toEqual(0);
+  expect(dimensions.margin.left).toEqual(5);
+  expect(dimensions.margin.right).toEqual(5);
+});
+
+test("calculate block width3", () => {
+  const styledNode = new StyledNode(
+    text("obj"),
+    new Map([
+      ["margin", new CssValue.Keyword("auto") as CssValue],
+      ["padding", new CssValue.Length(30, Unit.Px) as CssValue]
+    ]),
+    []
+  );
+  const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
+  const content = new Dimensions(
+    new Rect(0, 0, 30, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0)
+  );
+  layout.calculateBlockWidth(content);
+  const dimensions = layout.dimensions;
+  expect(dimensions.content.width).toEqual(0);
+  expect(dimensions.padding.left).toEqual(30);
+  expect(dimensions.padding.right).toEqual(30);
+  expect(dimensions.border.left).toEqual(0);
+  expect(dimensions.border.right).toEqual(0);
+  expect(dimensions.margin.left).toEqual(0);
+  expect(dimensions.margin.right).toEqual(-30);
+});
+
+test("calculate block width4", () => {
+  const styledNode = new StyledNode(
+    text("obj"),
+    new Map([["margin-right", new CssValue.Keyword("auto") as CssValue]]),
+    []
+  );
+  const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
+  const content = new Dimensions(
+    new Rect(0, 0, 30, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0)
+  );
+  layout.calculateBlockWidth(content);
+  const dimensions = layout.dimensions;
+  expect(dimensions.content.width).toEqual(30);
+  expect(dimensions.padding.left).toEqual(0);
+  expect(dimensions.padding.right).toEqual(0);
+  expect(dimensions.border.left).toEqual(0);
+  expect(dimensions.border.right).toEqual(0);
+  expect(dimensions.margin.left).toEqual(0);
+  expect(dimensions.margin.right).toEqual(0);
+});
+
+test("calculate block width5", () => {
+  const styledNode = new StyledNode(
+    text("obj"),
+    new Map([
+      ["margin-right", new CssValue.Keyword("auto") as CssValue],
+      ["width", new CssValue.Length(40, Unit.Px) as CssValue]
+    ]),
+    []
+  );
+  const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
+  const content = new Dimensions(
+    new Rect(0, 0, 50, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0)
+  );
+  layout.calculateBlockWidth(content);
+  const dimensions = layout.dimensions;
+  expect(dimensions.content.width).toEqual(40);
+  expect(dimensions.padding.left).toEqual(0);
+  expect(dimensions.padding.right).toEqual(0);
+  expect(dimensions.border.left).toEqual(0);
+  expect(dimensions.border.right).toEqual(0);
+  expect(dimensions.margin.left).toEqual(0);
+  expect(dimensions.margin.right).toEqual(10);
+});
+
+test("calculate block width6", () => {
+  const styledNode = new StyledNode(
+    text("obj"),
+    new Map([
+      ["margin-left", new CssValue.Keyword("auto") as CssValue],
+      ["width", new CssValue.Length(40, Unit.Px) as CssValue]
+    ]),
+    []
+  );
+  const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
+  const content = new Dimensions(
+    new Rect(0, 0, 50, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0)
+  );
+  layout.calculateBlockWidth(content);
+  const dimensions = layout.dimensions;
+  expect(dimensions.content.width).toEqual(40);
+  expect(dimensions.padding.left).toEqual(0);
+  expect(dimensions.padding.right).toEqual(0);
+  expect(dimensions.border.left).toEqual(0);
+  expect(dimensions.border.right).toEqual(0);
+  expect(dimensions.margin.left).toEqual(10);
+  expect(dimensions.margin.right).toEqual(0);
+});
+
+test("calculate block width7", () => {
+  const styledNode = new StyledNode(
+    text("obj"),
+    new Map([
+      ["margin", new CssValue.Keyword("auto") as CssValue],
+      ["padding", new CssValue.Length(20, Unit.Px) as CssValue],
+      ["width", new CssValue.Length(40, Unit.Px) as CssValue]
+    ]),
+    []
+  );
+  const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
+  const content = new Dimensions(
+    new Rect(0, 0, 50, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0)
+  );
+  layout.calculateBlockWidth(content);
+  const dimensions = layout.dimensions;
+  expect(dimensions.content.width).toEqual(40);
+  expect(dimensions.padding.left).toEqual(20);
+  expect(dimensions.padding.right).toEqual(20);
+  expect(dimensions.border.left).toEqual(0);
+  expect(dimensions.border.right).toEqual(0);
+  expect(dimensions.margin.left).toEqual(0);
+  expect(dimensions.margin.right).toEqual(-30);
 });
