@@ -273,6 +273,22 @@ export class LayoutBox {
       d.border.top +
       d.padding.top;
   }
+
+  // Height of a block-level non-replaced element in normal flow with overflow visible.
+  calculateBlockHeight(containingBlock: Dimensions): void {
+    // If the height is set to an explicit length, use that exact length.
+    // Otherwise, just keep the value set by `layout_block_children`.
+    const height = this.getStyleNode().value("height");
+    if (!height) {
+      return;
+    }
+    switch (height.format) {
+      case CssValue.Format.Length:
+        if (height.unit === Unit.Px) {
+          this.dimensions.content.height = height.length;
+        }
+    }
+  }
 }
 
 export function buildLayoutTree(styleNode: StyledNode): LayoutBox {
