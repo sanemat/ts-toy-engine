@@ -524,3 +524,28 @@ test("calculate block height3", () => {
   const dimensions = layout.dimensions;
   expect(dimensions.content.height).toEqual(0);
 });
+
+test("layout block", () => {
+  const styledNode = new StyledNode(
+    text("obj"),
+    new Map([["width", new CssValue.Length(40, Unit.Px)]]),
+    []
+  );
+  const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
+  const content = new Dimensions(
+    new Rect(1, 2, 3, 4),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0)
+  );
+  layout.layoutBlock(content);
+  const dimensions = layout.dimensions;
+  expect(dimensions.content.x).toEqual(1);
+  expect(dimensions.content.y).toEqual(6);
+  expect(dimensions.padding.top).toEqual(0);
+  expect(dimensions.padding.bottom).toEqual(0);
+  expect(dimensions.border.top).toEqual(0);
+  expect(dimensions.border.bottom).toEqual(0);
+  expect(dimensions.margin.top).toEqual(0);
+  expect(dimensions.margin.bottom).toEqual(0);
+});
