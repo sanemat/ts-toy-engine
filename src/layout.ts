@@ -241,6 +241,38 @@ export class LayoutBox {
     d.margin.left = marginLeft.toPx();
     d.margin.right = marginRight.toPx();
   }
+
+  // Finish calculating the block's edge sizes, and position it within its containing block.
+  //
+  // http://www.w3.org/TR/CSS2/visudet.html#normal-block
+  //
+  // Sets the vertical margin/padding/border dimensions, and the `x`, `y` values.
+  calculateBlockPosition(containingBlock: Dimensions): void {
+    const style = this.getStyleNode();
+    const d = this.dimensions;
+
+    // margin, border, and padding have initial value 0.
+    const zeroLength = new CssValue.Length(0.0, Unit.Px);
+
+    // If margin-top or margin-bottom is `auto`, the used value is zero.
+    d.margin.top = style.lookup("margin-top", "margin", zeroLength).toPx();
+    d.margin.bottom = style.lookup("margin-bottom", "margin", zeroLength).toPx();
+
+    d.border.top = style.lookup("border-top-width", "border-width", zeroLength).toPx();
+    d.border.bottom = style.lookup("border-bottom-width", "border-width", zeroLength).toPx();
+
+    d.padding.top = style.lookup("padding-top", "padding", zeroLength).toPx();
+    d.padding.bottom = style.lookup("padding-bottom", "padding", zeroLength).toPx();
+
+    d.content.x = containingBlock.content.x + d.margin.left + d.border.left + d.padding.left;
+    // Position the box below all the previous boxes in the container.
+    d.content.y =
+      containingBlock.content.height +
+      containingBlock.content.y +
+      d.margin.top +
+      d.border.top +
+      d.padding.top;
+  }
 }
 
 export function buildLayoutTree(styleNode: StyledNode): LayoutBox {
