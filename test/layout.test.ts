@@ -500,13 +500,7 @@ test("calculate block height1", () => {
     []
   );
   const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
-  const content = new Dimensions(
-    new Rect(1, 2, 3, 4),
-    new EdgeSizes(0, 0, 0, 0),
-    new EdgeSizes(0, 0, 0, 0),
-    new EdgeSizes(0, 0, 0, 0)
-  );
-  layout.calculateBlockHeight(content);
+  layout.calculateBlockHeight();
   const dimensions = layout.dimensions;
   expect(dimensions.content.height).toEqual(40);
 });
@@ -518,13 +512,7 @@ test("calculate block height2", () => {
     []
   );
   const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
-  const content = new Dimensions(
-    new Rect(1, 2, 3, 4),
-    new EdgeSizes(0, 0, 0, 0),
-    new EdgeSizes(0, 0, 0, 0),
-    new EdgeSizes(0, 0, 0, 0)
-  );
-  layout.calculateBlockHeight(content);
+  layout.calculateBlockHeight();
   const dimensions = layout.dimensions;
   expect(dimensions.content.height).toEqual(0);
 });
@@ -532,13 +520,7 @@ test("calculate block height2", () => {
 test("calculate block height3", () => {
   const styledNode = new StyledNode(text("obj"), new Map([]), []);
   const layout = LayoutBox.Create(new BoxType.InlineNode(styledNode));
-  const content = new Dimensions(
-    new Rect(1, 2, 3, 4),
-    new EdgeSizes(0, 0, 0, 0),
-    new EdgeSizes(0, 0, 0, 0),
-    new EdgeSizes(0, 0, 0, 0)
-  );
-  layout.calculateBlockHeight(content);
+  layout.calculateBlockHeight();
   const dimensions = layout.dimensions;
   expect(dimensions.content.height).toEqual(0);
 });
