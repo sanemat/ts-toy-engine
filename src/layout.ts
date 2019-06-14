@@ -149,6 +149,14 @@ export class LayoutBox {
     }
   }
 
+  // Lay out a block-level element and its descendants.
+  layoutBlock(containingBlock: Dimensions): void {
+    this.calculateBlockWidth(containingBlock);
+    this.calculateBlockPosition(containingBlock);
+    // children
+    this.calculateBlockHeight();
+  }
+
   // Calculate the width of a block-level non-replaced element in normal flow.
   //
   // http://www.w3.org/TR/CSS2/visudet.html#blockwidth
