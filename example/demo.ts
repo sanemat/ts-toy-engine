@@ -10,6 +10,7 @@ import {
   Stylesheet
 } from "../src/css";
 import { styleTree } from "../src/style";
+import { Dimensions, EdgeSizes, Rect } from "../src/layout";
 
 // <html>
 //   <body>
@@ -273,3 +274,10 @@ const styleNode = styleTree(domNode, stylesheet);
 //     }
 //   ]
 // }
+
+const viewport = new Dimensions(
+  new Rect(0, 0, 200, 100),
+  new EdgeSizes(0, 0, 0, 0),
+  new EdgeSizes(0, 0, 0, 0),
+  new EdgeSizes(0, 0, 0, 0)
+);
