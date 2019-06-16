@@ -153,7 +153,7 @@ export class LayoutBox {
   layoutBlock(containingBlock: Dimensions): void {
     this.calculateBlockWidth(containingBlock);
     this.calculateBlockPosition(containingBlock);
-    // children
+    this.layoutBlockChildren();
     this.calculateBlockHeight();
   }
 
