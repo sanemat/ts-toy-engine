@@ -297,6 +297,13 @@ export class LayoutBox {
         }
     }
   }
+
+  layout(containingBlock: Dimensions): void {
+    switch (this.boxType.format) {
+      case BoxType.Format.BlockNode:
+        this.layoutBlock(containingBlock);
+    }
+  }
 }
 
 export function buildLayoutTree(styleNode: StyledNode): LayoutBox {
