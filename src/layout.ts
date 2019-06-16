@@ -350,8 +350,19 @@ export function buildLayoutTree(styleNode: StyledNode): LayoutBox {
 export function layoutTree(styleNode: StyledNode, containingBlock: Dimensions): LayoutBox {
   // The layout algorithm expects the container height to start at 0.
   // TODO: Save the initial containing block height, for calculating percent heights.
-  containingBlock.content.height = 0.0;
   const rootBox = buildLayoutTree(styleNode);
-  rootBox.layout(containingBlock);
+  rootBox.layout(
+    new Dimensions(
+      new Rect(
+        containingBlock.content.x,
+        containingBlock.content.y,
+        containingBlock.content.width,
+        0.0
+      ),
+      containingBlock.padding,
+      containingBlock.border,
+      containingBlock.margin
+    )
+  );
   return rootBox;
 }

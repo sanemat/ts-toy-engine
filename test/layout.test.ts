@@ -1,4 +1,12 @@
-import { BoxType, buildLayoutTree, Dimensions, EdgeSizes, LayoutBox, Rect } from "../src/layout";
+import {
+  BoxType,
+  buildLayoutTree,
+  Dimensions,
+  EdgeSizes,
+  LayoutBox,
+  layoutTree,
+  Rect
+} from "../src/layout";
 import { StyledNode } from "../src/style";
 import { elem, text } from "../src/dom";
 import { CssValue, Unit } from "../src/css";
@@ -601,4 +609,20 @@ test("layout block children", () => {
   expect(dimensions.border.bottom).toEqual(0);
   expect(dimensions.margin.top).toEqual(0);
   expect(dimensions.margin.bottom).toEqual(0);
+});
+
+test("layoutTree1", () => {
+  const styledNode = new StyledNode(
+    text("obj"),
+    new Map([["width", new CssValue.Length(40, Unit.Px)]]),
+    []
+  );
+  const dimensions = new Dimensions(
+    new Rect(1, 2, 3, 4),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0),
+    new EdgeSizes(0, 0, 0, 0)
+  );
+  const layout = layoutTree(styledNode, dimensions);
+  expect(dimensions.content.height).toEqual(4);
 });

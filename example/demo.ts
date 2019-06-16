@@ -541,7 +541,6 @@ const layoutRoot = layoutTree(styleRoot, viewport);
 //     }
 //   ]
 // }
-viewport.content.height = 100;
 const canvas = paint(layoutRoot, viewport.content);
 Jimp.create(canvas.width, canvas.height)
   .then(value => {
