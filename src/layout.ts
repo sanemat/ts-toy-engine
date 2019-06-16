@@ -304,6 +304,15 @@ export class LayoutBox {
         this.layoutBlock(containingBlock);
     }
   }
+
+  layoutBlockChildren(): void {
+    const d = this.dimensions;
+    for (const child of this.children) {
+      child.layout(d);
+      // Increment the height so each child is laid out below the previous one.
+      d.content.height = d.content.height + child.dimensions.marginBox().height;
+    }
+  }
 }
 
 export function buildLayoutTree(styleNode: StyledNode): LayoutBox {
