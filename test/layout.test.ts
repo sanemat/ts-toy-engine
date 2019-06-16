@@ -549,3 +549,56 @@ test("layout block", () => {
   expect(dimensions.margin.top).toEqual(0);
   expect(dimensions.margin.bottom).toEqual(0);
 });
+
+test("layout block children", () => {
+  const layout = new LayoutBox(
+    new Dimensions(
+      new Rect(1, 2, 3, 4),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0),
+      new EdgeSizes(0, 0, 0, 0)
+    ),
+    new BoxType.BlockNode(
+      new StyledNode(
+        elem("no mean", new Map([["id", "target"]]), []),
+        new Map([["display", new CssValue.Keyword("block")]]),
+        [
+          new StyledNode(
+            elem("no mean", new Map([["id", "target2"]]), []),
+            new Map([["display", new CssValue.Keyword("block")]]),
+            []
+          )
+        ]
+      )
+    ),
+    [
+      new LayoutBox(
+        new Dimensions(
+          new Rect(5, 6, 7, 8),
+          new EdgeSizes(0, 0, 0, 0),
+          new EdgeSizes(0, 0, 0, 0),
+          new EdgeSizes(0, 0, 0, 0)
+        ),
+        new BoxType.BlockNode(
+          new StyledNode(
+            elem("no mean", new Map([["id", "target2"]]), []),
+            new Map([["display", new CssValue.Keyword("block")]]),
+            []
+          )
+        ),
+        []
+      )
+    ]
+  );
+  layout.layoutBlockChildren();
+  const dimensions = layout.dimensions;
+  expect(dimensions.content.x).toEqual(1);
+  expect(dimensions.content.y).toEqual(2);
+  expect(dimensions.content.height).toEqual(12);
+  expect(dimensions.padding.top).toEqual(0);
+  expect(dimensions.padding.bottom).toEqual(0);
+  expect(dimensions.border.top).toEqual(0);
+  expect(dimensions.border.bottom).toEqual(0);
+  expect(dimensions.margin.top).toEqual(0);
+  expect(dimensions.margin.bottom).toEqual(0);
+});
