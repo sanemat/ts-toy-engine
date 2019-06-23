@@ -24,3 +24,13 @@ test("startsWidth 3", () => {
   const currentParser = new Parser(2, "bananas");
   expect(currentParser.startsWith("nana")).toBeTruthy();
 });
+
+test("eof 1", () => {
+  const currentParser = new Parser(0, "a");
+  expect(currentParser.eof()).toBeFalsy();
+});
+
+test("eof 2", () => {
+  const currentParser = new Parser(1, "a");
+  expect(currentParser.eof()).toBeTruthy();
+});
