@@ -10,4 +10,9 @@ export class Parser {
   nextChar(): string {
     return this.input[this.pos + 1];
   }
+
+  // Do the next characters start with the given string?
+  startsWith(s: string): boolean {
+    return this.input.slice(this.pos).startsWith(s);
+  }
 }
