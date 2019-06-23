@@ -5,4 +5,9 @@ export class Parser {
     this.pos = pos;
     this.input = input;
   }
+
+  // Read the current character without consuming it.
+  nextChar(): string {
+    return this.input[this.pos + 1];
+  }
 }
