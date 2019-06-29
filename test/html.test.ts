@@ -48,4 +48,5 @@ test("consume while 1", () => {
     return false;
   };
   expect(currentParser.consumeWhile(returnFalse)).toEqual("");
+  expect(currentParser).toEqual(new Parser(2, "bananas"));
 });
