@@ -27,4 +27,9 @@ export class Parser {
     this.pos += 1;
     return this.input[currentPos];
   }
+
+  // Consume characters until `test` returns false.
+  consumeWhile(test: Function): string {
+    return "a";
+  }
 }
