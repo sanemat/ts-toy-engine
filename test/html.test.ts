@@ -34,3 +34,10 @@ test("eof 2", () => {
   const currentParser = new Parser(1, "a");
   expect(currentParser.eof()).toBeTruthy();
 });
+
+test("cousume char", () => {
+  const currentParser = new Parser(2, "bananas");
+  const target = currentParser.consumeChar();
+  expect(target).toEqual("n");
+  expect(currentParser).toEqual(new Parser(3, "bananas"));
+});

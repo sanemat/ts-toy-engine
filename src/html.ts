@@ -20,4 +20,11 @@ export class Parser {
   eof(): boolean {
     return this.input.length <= this.pos;
   }
+
+  // Return the current character, and advance this.pos to the next character.
+  consumeChar(): string {
+    const currentPos = this.pos;
+    this.pos += 1;
+    return this.input[currentPos];
+  }
 }
