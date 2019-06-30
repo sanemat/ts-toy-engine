@@ -105,3 +105,10 @@ test("parse attr value 2", () => {
   expect(currentParser.parseAttrValue()).toEqual("foo");
   expect(currentParser).toEqual(new Parser(16, `<div class="foo">bananas</div>`));
 });
+
+test("parse attr value 3", () => {
+  const currentParser = new Parser(11, `<div class="foo`);
+  expect(() => {
+    currentParser.parseAttrValue();
+  }).toThrow();
+});
