@@ -1,4 +1,5 @@
 import { DomNode, text } from "./dom";
+import * as assert from "assert";
 
 const isWhitespace = require("is-whitespace-character");
 export class Parser {
@@ -56,5 +57,16 @@ export class Parser {
         return s !== "<";
       })
     );
+  }
+
+  // Parse a quoted value.
+  parseAttrValue(): string {
+    const openQuote = this.consumeChar();
+    assert(openQuote === "'" || openQuote === '"');
+    const value = this.consumeWhile((s: string) => {
+      return s !== openQuote;
+    });
+    assert(this.consumeChar() === openQuote);
+    return value;
   }
 }
