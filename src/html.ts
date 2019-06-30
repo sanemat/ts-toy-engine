@@ -41,4 +41,10 @@ export class Parser {
   consumeWhitespace(): string {
     return this.consumeWhile(isWhitespace);
   }
+
+  parseTagName(): string {
+    return this.consumeWhile((s: string) => {
+      return /[0-9a-zA-Z]/.test(s);
+    });
+  }
 }

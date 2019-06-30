@@ -80,3 +80,9 @@ test("consume whitespace 2", () => {
   expect(currentParser.consumeWhitespace()).toEqual("  ");
   expect(currentParser).toEqual(new Parser(4, "ba  n anas"));
 });
+
+test("parse tag name 1", () => {
+  const currentParser = new Parser(2, "bananas apples");
+  expect(currentParser.parseTagName()).toEqual("nanas");
+  expect(currentParser).toEqual(new Parser(7, "bananas apples"));
+});
