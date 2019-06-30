@@ -1,3 +1,4 @@
+const isWhitespace = require("is-whitespace-character");
 export class Parser {
   pos: number;
   input: string;
@@ -35,5 +36,9 @@ export class Parser {
       result += this.consumeChar();
     }
     return result;
+  }
+
+  consumeWhitespace(): string {
+    return this.consumeWhile(isWhitespace);
   }
 }
