@@ -69,4 +69,12 @@ export class Parser {
     assert(this.consumeChar() === openQuote);
     return value;
   }
+
+  // Parse a single name="value" pair.
+  parseAttr(): [string, string] {
+    const name = this.parseTagName();
+    assert(this.consumeChar() === "=");
+    const value = this.parseAttrValue();
+    return [name, value];
+  }
 }
