@@ -1,3 +1,5 @@
+import { DomNode, text } from "./dom";
+
 const isWhitespace = require("is-whitespace-character");
 export class Parser {
   pos: number;
@@ -46,5 +48,13 @@ export class Parser {
     return this.consumeWhile((s: string) => {
       return /[0-9a-zA-Z]/.test(s);
     });
+  }
+
+  parseText(): DomNode {
+    return text(
+      this.consumeWhile((s: string) => {
+        return s !== "<";
+      })
+    );
   }
 }

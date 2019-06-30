@@ -1,4 +1,5 @@
 import { Parser } from "../src/html";
+import { text } from "../src/dom";
 
 test("#nextChar 1", () => {
   const currentParser = new Parser(0, "12abcあいう");
@@ -85,4 +86,10 @@ test("parse tag name 1", () => {
   const currentParser = new Parser(2, "bananas apples");
   expect(currentParser.parseTagName()).toEqual("nanas");
   expect(currentParser).toEqual(new Parser(7, "bananas apples"));
+});
+
+test("parse text 1", () => {
+  const currentParser = new Parser(5, "<div>bananas apples</div>");
+  expect(currentParser.parseText()).toEqual(text("bananas apples"));
+  expect(currentParser).toEqual(new Parser(19, "<div>bananas apples</div>"));
 });
