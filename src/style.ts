@@ -104,11 +104,9 @@ export function matchingRules(elem: ElementData, stylesheet: Stylesheet): Matche
     .map(rule => {
       return matchRule(elem, rule);
     })
-    .filter(
-      (matchedOrNull): matchedOrNull is MatchedRule => {
-        return matchedOrNull !== null;
-      }
-    );
+    .filter((matchedOrNull): matchedOrNull is MatchedRule => {
+      return matchedOrNull !== null;
+    });
 }
 
 export function compareMatchedRule(left: MatchedRule, right: MatchedRule): number {
