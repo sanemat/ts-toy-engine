@@ -8,7 +8,7 @@ export class Parser {
 
   // Read the current character without consuming it.
   nextChar(): string {
-    return this.input[this.pos + 1];
+    return this.input[this.pos];
   }
 
   // Do the next characters start with the given string?
