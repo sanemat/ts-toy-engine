@@ -1,4 +1,4 @@
-import { AttrMap, DomNode, text } from "./dom";
+import { AttrMap, DomNode, elem, text } from "./dom";
 import * as assert from "assert";
 
 const isWhitespace = require("is-whitespace-character");
@@ -90,5 +90,29 @@ export class Parser {
       attributes.set(name, value);
     }
     return attributes;
+  }
+
+  // Parse a single element, including its open tag, contents, and closing tag.
+  parseElement(): DomNode {
+    // opening tag
+    assert(this.consumeChar() === "<");
+    const tagName = this.parseTagName();
+    const attributes = this.parseAttributes();
+    assert(this.consumeChar() === ">");
+
+    // contents
+    // NOTE: This is fake
+    this.consumeWhile((s: string) => {
+      return s !== "<";
+    });
+
+    const children: DomNode[] = [];
+
+    // closing tag
+    assert(this.consumeChar() === "<");
+    assert(this.consumeChar() === "/");
+    assert(this.parseTagName() === tagName);
+    assert(this.consumeChar() === ">");
+    return elem(tagName, attributes, children);
   }
 }

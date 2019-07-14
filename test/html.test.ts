@@ -1,5 +1,5 @@
 import { Parser } from "../src/html";
-import { text } from "../src/dom";
+import { elem, text } from "../src/dom";
 
 test("#nextChar 1", () => {
   const currentParser = new Parser(0, "12abcあいう");
@@ -130,4 +130,54 @@ test("parse attributes 1", () => {
   const currentParser = new Parser(5, `<div foo="foo1" bar="bar2">bananas</div>`);
   expect(currentParser.parseAttributes()).toEqual(new Map([["foo", "foo1"], ["bar", "bar2"]]));
   expect(currentParser).toEqual(new Parser(26, `<div foo="foo1" bar="bar2">bananas</div>`));
+});
+
+test("parse element 1", () => {
+  const currentParser = new Parser(0, `<div foo="foo1" bar="bar2">bananas</div>`);
+  expect(currentParser.parseElement()).toEqual(
+    elem("div", new Map([["foo", "foo1"], ["bar", "bar2"]]), [])
+  );
+  expect(currentParser).toEqual(new Parser(40, `<div foo="foo1" bar="bar2">bananas</div>`));
+});
+
+test("parse element 2", () => {
+  const currentParser = new Parser(5, `<div foo="foo1" bar="bar2">bananas</div>`);
+  expect(() => {
+    currentParser.parseElement();
+  }).toThrow();
+});
+
+test("parse element 3", () => {
+  const currentParser = new Parser(0, `<div foo="foo1" bar="bar2" bananas</div>`);
+  expect(() => {
+    currentParser.parseElement();
+  }).toThrow();
+});
+
+test("parse element 4", () => {
+  const currentParser = new Parser(0, `<div foo="foo1" bar="bar2"> bananas`);
+  expect(() => {
+    currentParser.parseElement();
+  }).toThrow();
+});
+
+test("parse element 5", () => {
+  const currentParser = new Parser(0, `<div foo="foo1" bar="bar2">bananas<div>`);
+  expect(() => {
+    currentParser.parseElement();
+  }).toThrow();
+});
+
+test("parse element 6", () => {
+  const currentParser = new Parser(0, `<div foo="foo1" bar="bar2">bananas</foo>`);
+  expect(() => {
+    currentParser.parseElement();
+  }).toThrow();
+});
+
+test("parse element 7", () => {
+  const currentParser = new Parser(0, `<div foo="foo1" bar="bar2">bananas</div`);
+  expect(() => {
+    currentParser.parseElement();
+  }).toThrow();
 });
