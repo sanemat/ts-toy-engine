@@ -125,4 +125,17 @@ export class Parser {
         return this.parseText();
     }
   }
+
+  // Parse a sequence of sibling nodes.
+  parseNodes(): DomNode[] {
+    const nodes: DomNode[] = [];
+    while (true) {
+      this.consumeWhitespace();
+      if (this.eof() || this.startsWith("</")) {
+        break;
+      }
+      nodes.push(this.parseNode());
+    }
+    return nodes;
+  }
 }
