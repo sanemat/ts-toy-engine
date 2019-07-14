@@ -101,7 +101,7 @@ export class Parser {
     assert(this.consumeChar() === ">");
 
     // contents
-    // NOTE: This is fake
+    // FIXME: This is fake
     this.consumeWhile((s: string) => {
       return s !== "<";
     });
@@ -114,5 +114,15 @@ export class Parser {
     assert(this.parseTagName() === tagName);
     assert(this.consumeChar() === ">");
     return elem(tagName, attributes, children);
+  }
+
+  // Parse a single node.
+  parseNode(): DomNode {
+    switch (this.nextChar()) {
+      case "<":
+        return this.parseElement();
+      default:
+        return this.parseText();
+    }
   }
 }
