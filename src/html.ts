@@ -101,12 +101,7 @@ export class Parser {
     assert(this.consumeChar() === ">");
 
     // contents
-    // FIXME: This is fake
-    this.consumeWhile((s: string) => {
-      return s !== "<";
-    });
-
-    const children: DomNode[] = [];
+    const children = this.parseNodes();
 
     // closing tag
     assert(this.consumeChar() === "<");

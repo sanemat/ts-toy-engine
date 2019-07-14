@@ -135,7 +135,7 @@ test("parse attributes 1", () => {
 test("parse element 1", () => {
   const currentParser = new Parser(0, `<div foo="foo1" bar="bar2">bananas</div>`);
   expect(currentParser.parseElement()).toEqual(
-    elem("div", new Map([["foo", "foo1"], ["bar", "bar2"]]), [])
+    elem("div", new Map([["foo", "foo1"], ["bar", "bar2"]]), [text("bananas")])
   );
   expect(currentParser).toEqual(new Parser(40, `<div foo="foo1" bar="bar2">bananas</div>`));
 });
@@ -191,7 +191,7 @@ test("parse node 1", () => {
 test("parse node 2", () => {
   const currentParser = new Parser(0, `<div foo="foo1" bar="bar2">bananas</div>`);
   expect(currentParser.parseNode()).toEqual(
-    elem("div", new Map([["foo", "foo1"], ["bar", "bar2"]]), [])
+    elem("div", new Map([["foo", "foo1"], ["bar", "bar2"]]), [text("bananas")])
   );
   expect(currentParser).toEqual(new Parser(40, `<div foo="foo1" bar="bar2">bananas</div>`));
 });
