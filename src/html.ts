@@ -1,4 +1,4 @@
-import { DomNode, text } from "./dom";
+import { AttrMap, DomNode, text } from "./dom";
 import * as assert from "assert";
 
 const isWhitespace = require("is-whitespace-character");
@@ -76,5 +76,19 @@ export class Parser {
     assert(this.consumeChar() === "=");
     const value = this.parseAttrValue();
     return [name, value];
+  }
+
+  // Parse a list of name="value" pairs, separated by whitespace.
+  parseAttributes(): AttrMap {
+    const attributes = new Map<string, string>();
+    while (true) {
+      this.consumeWhitespace();
+      if (this.nextChar() === ">") {
+        break;
+      }
+      const [name, value] = this.parseAttr();
+      attributes.set(name, value);
+    }
+    return attributes;
   }
 }

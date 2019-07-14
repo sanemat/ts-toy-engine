@@ -125,3 +125,9 @@ test("parse attr 2", () => {
     currentParser.parseAttr();
   }).toThrow();
 });
+
+test("parse attributes 1", () => {
+  const currentParser = new Parser(5, `<div foo="foo1" bar="bar2">bananas</div>`);
+  expect(currentParser.parseAttributes()).toEqual(new Map([["foo", "foo1"], ["bar", "bar2"]]));
+  expect(currentParser).toEqual(new Parser(26, `<div foo="foo1" bar="bar2">bananas</div>`));
+});
