@@ -115,4 +115,14 @@ export class Parser {
     assert(this.consumeChar() === ">");
     return elem(tagName, attributes, children);
   }
+
+  // Parse a single node.
+  parseNode(): DomNode {
+    switch (this.nextChar()) {
+      case "<":
+        return text("example");
+      default:
+        return this.parseText();
+    }
+  }
 }
