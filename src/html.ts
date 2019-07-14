@@ -120,7 +120,7 @@ export class Parser {
   parseNode(): DomNode {
     switch (this.nextChar()) {
       case "<":
-        return text("example");
+        return this.parseElement();
       default:
         return this.parseText();
     }
