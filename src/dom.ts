@@ -35,7 +35,7 @@ export namespace NodeType {
 
 export type NodeType = NodeType.Element | NodeType.Text;
 
-type AttrMap = Map<string, string>;
+export type AttrMap = Map<string, string>;
 
 export class ElementData {
   tagName: string;
