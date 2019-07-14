@@ -101,7 +101,7 @@ export class Parser {
     assert(this.consumeChar() === ">");
 
     // contents
-    // NOTE: This is fake
+    // FIXME: This is fake
     this.consumeWhile((s: string) => {
       return s !== "<";
     });
