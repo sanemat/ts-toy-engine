@@ -195,3 +195,9 @@ test("parse node 2", () => {
   );
   expect(currentParser).toEqual(new Parser(40, `<div foo="foo1" bar="bar2">bananas</div>`));
 });
+
+test("parse nodes 1", () => {
+  const currentParser = new Parser(5, "<div>bananas apples</div>");
+  expect(currentParser.parseNodes()).toEqual([text("bananas apples")]);
+  expect(currentParser).toEqual(new Parser(19, "<div>bananas apples</div>"));
+});
