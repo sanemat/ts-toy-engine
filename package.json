@@ -27,10 +27,8 @@
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
     "test:prod": "npm run lint && npm run test -- --no-cache",
-    "deploy-docs": "ts-node tools/gh-pages-publish",
     "commit": "git-cz",
-    "semantic-release": "semantic-release",
-    "semantic-release-prepare": "ts-node tools/semantic-release-prepare"
+    "semantic-release": "semantic-release"
   },
   "config": {
     "commitizen": {
@@ -86,7 +84,6 @@
     "replace-in-file": "^4.1.1",
     "rimraf": "^2.6.3",
     "semantic-release": "^15.13.18",
-    "shelljs": "^0.8.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
