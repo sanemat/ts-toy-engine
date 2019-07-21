@@ -106,11 +106,6 @@
     "typedoc": "^0.14.2",
     "typescript": "^3.5.3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "fast-deep-equal": "^2.0.1",
     "is-whitespace-character": "^1.0.3",
