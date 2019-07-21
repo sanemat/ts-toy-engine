@@ -1,4 +1,4 @@
-import { Parser } from "../src/html";
+import { parse, Parser } from "../src/html";
 import { elem, text } from "../src/dom";
 
 test("#nextChar 1", () => {
@@ -215,5 +215,20 @@ test("parse nodes 2", () => {
   ]);
   expect(currentParser).toEqual(
     new Parser(69, `<div foo="foo1" bar="bar2">bananas <div moo="moo3">apples</div></div>`)
+  );
+});
+
+test("parse 1", () => {
+  const html = `<html><body></body></html>`;
+  expect(parse(html)).toEqual(elem("html", new Map([]), [elem("body", new Map([]), [])]));
+});
+
+test("parse 2", () => {
+  const html = `<div>bananas apples</div> <div>oranges</div>`;
+  expect(parse(html)).toEqual(
+    elem("html", new Map([]), [
+      elem("div", new Map(), [text("bananas apples")]),
+      elem("div", new Map(), [text("oranges")])
+    ])
   );
 });
