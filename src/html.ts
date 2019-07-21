@@ -2,7 +2,7 @@ import { AttrMap, DomNode, elem, text } from "./dom";
 import * as assert from "assert";
 
 const isWhitespace = require("is-whitespace-character");
-export class Parser {
+export class HtmlParser {
   pos: number;
   input: string;
   constructor(pos: number, input: string) {
@@ -137,7 +137,7 @@ export class Parser {
 
 // Parse an HTML document and return the root element.
 export function parse(source: string): DomNode {
-  const nodes = new Parser(0, source).parseNodes();
+  const nodes = new HtmlParser(0, source).parseNodes();
 
   // If the document contains a root element, just return it. Otherwise, create one.
   if (nodes.length === 1) {
