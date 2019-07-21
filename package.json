@@ -78,6 +78,7 @@
     "fast-deep-equal": "^2.0.1",
     "is-whitespace-character": "^1.0.3",
     "jimp": "^0.6.4",
-    "math-clamp": "^1.0.0"
+    "math-clamp": "^1.0.0",
+    "meow": "^5.0.0"
   }
 }
