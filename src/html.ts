@@ -134,3 +134,15 @@ export class Parser {
     return nodes;
   }
 }
+
+// Parse an HTML document and return the root element.
+export function parse(source: string): DomNode {
+  const nodes = new Parser(0, source).parseNodes();
+
+  // If the document contains a root element, just return it. Otherwise, create one.
+  if (nodes.length === 1) {
+    return nodes[0];
+  } else {
+    return elem("html", new Map(), nodes);
+  }
+}
