@@ -34,12 +34,6 @@
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "travis-deploy-once": "travis-deploy-once"
   },
-  "lint-staged": {
-    "{src,test,example}/**/*.ts": [
-      "prettier --write",
-      "git add"
-    ]
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
@@ -90,7 +84,6 @@
     "cz-conventional-changelog": "^3.0.1",
     "jest": "^24.8.0",
     "jest-config": "^24.8.0",
-    "lint-staged": "^9.2.0",
     "prettier": "^1.18.2",
     "prompt": "^1.0.0",
     "replace-in-file": "^4.1.1",
