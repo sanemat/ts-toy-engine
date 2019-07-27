@@ -148,3 +148,30 @@ test("consume char", () => {
   expect(target).toEqual("n");
   expect(currentParser).toEqual(new CssParser(3, "bananas"));
 });
+
+test("consume while 1", () => {
+  const currentParser = new CssParser(2, "bananas");
+  const returnFalse = () => {
+    return false;
+  };
+  expect(currentParser.consumeWhile(returnFalse)).toEqual("");
+  expect(currentParser).toEqual(new CssParser(2, "bananas"));
+});
+
+test("consume while 2", () => {
+  const currentParser = new CssParser(2, "bananas");
+  const returnTrue = () => {
+    return true;
+  };
+  expect(currentParser.consumeWhile(returnTrue)).toEqual("nanas");
+  expect(currentParser).toEqual(new CssParser(7, "bananas"));
+});
+
+test("consume while 3", () => {
+  const currentParser = new CssParser(2, "bananas");
+  const returnAN = (s: string) => {
+    return s === "a" || s === "n";
+  };
+  expect(currentParser.consumeWhile(returnAN)).toEqual("nana");
+  expect(currentParser).toEqual(new CssParser(6, "bananas"));
+});
