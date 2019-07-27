@@ -136,3 +136,13 @@ export class Stylesheet {
     this.rules = rules;
   }
 }
+
+export class CssParser {
+  pos: number;
+  input: string;
+
+  constructor(pos: number, input: string) {
+    this.pos = pos;
+    this.input = input;
+  }
+}
