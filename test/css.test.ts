@@ -116,3 +116,18 @@ test("#nextChar 2", () => {
   const currentParser = new CssParser(5, "12abcあいう");
   expect(currentParser.nextChar()).toEqual("あ");
 });
+
+test("startsWidth 1", () => {
+  const currentParser = new CssParser(0, "bananas");
+  expect(currentParser.startsWith("bana")).toBeTruthy();
+});
+
+test("startsWidth 2", () => {
+  const currentParser = new CssParser(0, "bananas");
+  expect(currentParser.startsWith("nana")).toBeFalsy();
+});
+
+test("startsWidth 3", () => {
+  const currentParser = new CssParser(2, "bananas");
+  expect(currentParser.startsWith("nana")).toBeTruthy();
+});

@@ -150,4 +150,9 @@ export class CssParser {
   nextChar(): string {
     return this.input[this.pos];
   }
+
+  // Do the next characters start with the given string?
+  startsWith(s: string): boolean {
+    return this.input.slice(this.pos).startsWith(s);
+  }
 }
