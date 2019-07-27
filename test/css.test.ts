@@ -1,5 +1,6 @@
 import {
   Color,
+  CssParser,
   CssValue,
   Declaration,
   Rule,
@@ -104,4 +105,14 @@ test("value to px length em", () => {
 
 test("value to px length px", () => {
   expect(new CssValue.Length(1.0, Unit.Px).toPx()).toEqual(1.0);
+});
+
+test("#nextChar 1", () => {
+  const currentParser = new CssParser(0, "12abcあいう");
+  expect(currentParser.nextChar()).toEqual("1");
+});
+
+test("#nextChar 2", () => {
+  const currentParser = new CssParser(5, "12abcあいう");
+  expect(currentParser.nextChar()).toEqual("あ");
 });
