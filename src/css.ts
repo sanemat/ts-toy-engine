@@ -155,4 +155,9 @@ export class CssParser {
   startsWith(s: string): boolean {
     return this.input.slice(this.pos).startsWith(s);
   }
+
+  // Return true if all input is consumed.
+  eof(): boolean {
+    return this.input.length <= this.pos;
+  }
 }
