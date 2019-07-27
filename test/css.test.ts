@@ -141,3 +141,10 @@ test("eof 2", () => {
   const currentParser = new CssParser(1, "a");
   expect(currentParser.eof()).toBeTruthy();
 });
+
+test("consume char", () => {
+  const currentParser = new CssParser(2, "bananas");
+  const target = currentParser.consumeChar();
+  expect(target).toEqual("n");
+  expect(currentParser).toEqual(new CssParser(3, "bananas"));
+});
