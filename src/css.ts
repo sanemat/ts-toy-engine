@@ -1,3 +1,5 @@
+const isWhitespace = require("is-whitespace-character");
+
 export class Color {
   r: number;
   g: number;
@@ -175,5 +177,9 @@ export class CssParser {
       result += this.consumeChar();
     }
     return result;
+  }
+
+  consumeWhitespace(): string {
+    return this.consumeWhile(isWhitespace);
   }
 }

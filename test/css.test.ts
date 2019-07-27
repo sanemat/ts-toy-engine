@@ -175,3 +175,15 @@ test("consume while 3", () => {
   expect(currentParser.consumeWhile(returnAN)).toEqual("nana");
   expect(currentParser).toEqual(new CssParser(6, "bananas"));
 });
+
+test("consume whitespace 1", () => {
+  const currentParser = new CssParser(2, "bananas");
+  expect(currentParser.consumeWhitespace()).toEqual("");
+  expect(currentParser).toEqual(new CssParser(2, "bananas"));
+});
+
+test("consume whitespace 2", () => {
+  const currentParser = new CssParser(2, "ba  n anas");
+  expect(currentParser.consumeWhitespace()).toEqual("  ");
+  expect(currentParser).toEqual(new CssParser(4, "ba  n anas"));
+});
