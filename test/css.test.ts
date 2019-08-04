@@ -210,3 +210,53 @@ test("parse identifier 1", () => {
   expect(currentParser.parseIdentifier()).toEqual("nanas");
   expect(currentParser).toEqual(new CssParser(7, "bananas apples"));
 });
+
+test("parse simple selector 1", () => {
+  const currentParser = new CssParser(14, "bananas apples");
+  expect(currentParser.parseSimpleSelector()).toEqual(new SimpleSelector(null, null, []));
+  expect(currentParser).toEqual(new CssParser(14, "bananas apples"));
+});
+
+test("parse simple selector 2", () => {
+  const currentParser = new CssParser(7, "bananas apples");
+  expect(currentParser.parseSimpleSelector()).toEqual(new SimpleSelector(null, null, []));
+  expect(currentParser).toEqual(new CssParser(7, "bananas apples"));
+});
+
+test("parse simple selector 3", () => {
+  const currentParser = new CssParser(2, "bananas apples");
+  expect(currentParser.parseSimpleSelector()).toEqual(new SimpleSelector("nanas", null, []));
+  expect(currentParser).toEqual(new CssParser(7, "bananas apples"));
+});
+
+test("parse simple selector 4", () => {
+  const currentParser = new CssParser(0, "* apples");
+  expect(currentParser.parseSimpleSelector()).toEqual(new SimpleSelector(null, null, []));
+  expect(currentParser).toEqual(new CssParser(1, "* apples"));
+});
+
+test("parse simple selector 5", () => {
+  const currentParser = new CssParser(5, "bana .nas apples");
+  expect(currentParser.parseSimpleSelector()).toEqual(new SimpleSelector(null, null, ["nas"]));
+  expect(currentParser).toEqual(new CssParser(9, "bana .nas apples"));
+});
+
+test("parse simple selector 6", () => {
+  const currentParser = new CssParser(5, "bana .na.s apples");
+  expect(currentParser.parseSimpleSelector()).toEqual(new SimpleSelector(null, null, ["na", "s"]));
+  expect(currentParser).toEqual(new CssParser(10, "bana .na.s apples"));
+});
+
+test("parse simple selector 7", () => {
+  const currentParser = new CssParser(5, "bana #nas apples");
+  expect(currentParser.parseSimpleSelector()).toEqual(new SimpleSelector(null, "nas", []));
+  expect(currentParser).toEqual(new CssParser(9, "bana #nas apples"));
+});
+
+test("parse simple selector 8", () => {
+  const currentParser = new CssParser(5, "bana type#id.class1.class2.class3 apples");
+  expect(currentParser.parseSimpleSelector()).toEqual(
+    new SimpleSelector("type", "id", ["class1", "class2", "class3"])
+  );
+  expect(currentParser).toEqual(new CssParser(33, "bana type#id.class1.class2.class3 apples"));
+});
