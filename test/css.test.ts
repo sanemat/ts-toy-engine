@@ -260,3 +260,27 @@ test("parse simple selector 8", () => {
   );
   expect(currentParser).toEqual(new CssParser(33, "bana type#id.class1.class2.class3 apples"));
 });
+
+test("parse selectors 1", () => {
+  const currentParser = new CssParser(2, "bananas { apples");
+  expect(currentParser.parseSelectors()).toEqual([
+    new Selector.Simple(new SimpleSelector("nanas", null, []))
+  ]);
+  expect(currentParser).toEqual(new CssParser(8, "bananas { apples"));
+});
+
+test("parse selectors 2", () => {
+  const currentParser = new CssParser(2, "bana nas { apples");
+  expect(() => {
+    currentParser.parseSelectors();
+  }).toThrow();
+});
+
+test("parse selectors 3", () => {
+  const currentParser = new CssParser(2, "bana, nas { apples");
+  expect(currentParser.parseSelectors()).toEqual([
+    new Selector.Simple(new SimpleSelector("na", null, [])),
+    new Selector.Simple(new SimpleSelector("nas", null, []))
+  ]);
+  expect(currentParser).toEqual(new CssParser(10, "bana, nas { apples"));
+});
