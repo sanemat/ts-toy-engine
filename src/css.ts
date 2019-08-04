@@ -210,6 +210,31 @@ export class CssParser {
     }
     return selector;
   }
+
+  // Parse a comma-separated list of selectors.
+  parseSelectors(): Selector[] {
+    const selectors: Selector[] = [];
+    // loop
+    while_true: while (true) {
+      selectors.push(new Selector.Simple(this.parseSimpleSelector()));
+      this.consumeWhitespace();
+      const s = this.nextChar();
+      switch (s) {
+        case ",":
+          this.consumeChar();
+          this.consumeWhitespace();
+          break;
+        case "{":
+          break while_true;
+        default:
+          throw new Error(`Unexpected character ${s} in selector list`);
+      }
+    }
+
+    // sort
+    // Return selectors with highest specificity first, for use in matching.
+    return selectors;
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
