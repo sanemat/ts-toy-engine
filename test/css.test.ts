@@ -7,7 +7,8 @@ import {
   Selector,
   SimpleSelector,
   Stylesheet,
-  Unit
+  Unit,
+  cssValidIdentifierChar
 } from "../src/css";
 
 test("a", () => {
@@ -186,4 +187,20 @@ test("consume whitespace 2", () => {
   const currentParser = new CssParser(2, "ba  n anas");
   expect(currentParser.consumeWhitespace()).toEqual("  ");
   expect(currentParser).toEqual(new CssParser(4, "ba  n anas"));
+});
+
+test("css valid identifier char 1", () => {
+  expect(cssValidIdentifierChar("a")).toBeTruthy();
+});
+
+test("css valid identifier char 2", () => {
+  expect(cssValidIdentifierChar("_")).toBeTruthy();
+});
+
+test("css valid identifier char 3", () => {
+  expect(cssValidIdentifierChar("-")).toBeTruthy();
+});
+
+test("css valid identifier char 4", () => {
+  expect(cssValidIdentifierChar(" ")).toBeFalsy();
 });

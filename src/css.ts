@@ -183,3 +183,7 @@ export class CssParser {
     return this.consumeWhile(isWhitespace);
   }
 }
+
+export function cssValidIdentifierChar(s: string): boolean {
+  return /[0-9a-zA-Z_\-]/.test(s);
+}
