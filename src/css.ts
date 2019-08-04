@@ -231,9 +231,27 @@ export class CssParser {
       }
     }
 
-    // sort
     // Return selectors with highest specificity first, for use in matching.
-    return selectors;
+    return selectors.sort((a, b) => {
+      const [aSpecificityA, aSpecificityB, aSpecificityC] = a.selector.specificity();
+      const [bSpecificityA, bSpecificityB, bSpecificityC] = b.selector.specificity();
+      if (bSpecificityA < aSpecificityA) {
+        return -1;
+      } else if (aSpecificityA < bSpecificityA) {
+        return 1;
+      }
+      if (bSpecificityB < aSpecificityB) {
+        return -1;
+      } else if (aSpecificityB < bSpecificityB) {
+        return 1;
+      }
+      if (bSpecificityC < aSpecificityC) {
+        return -1;
+      } else if (aSpecificityC < bSpecificityC) {
+        return 1;
+      }
+      return 1;
+    });
   }
 }
 
