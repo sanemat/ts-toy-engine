@@ -187,6 +187,29 @@ export class CssParser {
   parseIdentifier(): string {
     return this.consumeWhile(cssValidIdentifierChar);
   }
+
+  // Parse one simple selector, e.g.: `type#id.class1.class2.class3`
+  parseSimpleSelector(): SimpleSelector {
+    const selector = new SimpleSelector(null, null, []);
+    while (!this.eof()) {
+      const s = this.nextChar();
+      if (s === "#") {
+        this.consumeChar();
+        selector.id = this.parseIdentifier();
+      } else if (s === ".") {
+        this.consumeChar();
+        selector.classValue.push(this.parseIdentifier());
+      } else if (s === "*") {
+        // universal selector
+        this.consumeChar();
+      } else if (cssValidIdentifierChar(s)) {
+        selector.tagName = this.parseIdentifier();
+      } else {
+        break;
+      }
+    }
+    return selector;
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
