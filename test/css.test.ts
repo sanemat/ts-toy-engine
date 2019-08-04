@@ -204,3 +204,9 @@ test("css valid identifier char 3", () => {
 test("css valid identifier char 4", () => {
   expect(cssValidIdentifierChar(" ")).toBeFalsy();
 });
+
+test("parse identifier 1", () => {
+  const currentParser = new CssParser(2, "bananas apples");
+  expect(currentParser.parseIdentifier()).toEqual("nanas");
+  expect(currentParser).toEqual(new CssParser(7, "bananas apples"));
+});

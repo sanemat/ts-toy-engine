@@ -182,6 +182,11 @@ export class CssParser {
   consumeWhitespace(): string {
     return this.consumeWhile(isWhitespace);
   }
+
+  // Parse a property name or keyword.
+  parseIdentifier(): string {
+    return this.consumeWhile(cssValidIdentifierChar);
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
