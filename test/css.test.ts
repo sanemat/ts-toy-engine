@@ -358,3 +358,22 @@ test("parse selectors 4 sorted 6", () => {
   ]);
   expect(currentParser).toEqual(new CssParser(16, "  li.red, .dark { apples"));
 });
+
+test("parse unit 1", () => {
+  const currentParser = new CssParser(17, " div { margin: 10px; }");
+  expect(currentParser.parseUnit()).toEqual(Unit.Px);
+  expect(currentParser).toEqual(new CssParser(19, " div { margin: 10px; }"));
+});
+
+test("parse unit 2", () => {
+  const currentParser = new CssParser(17, " div { margin: 10g; }");
+  expect(() => {
+    currentParser.parseUnit();
+  }).toThrow();
+});
+
+test("parse unit 3", () => {
+  const currentParser = new CssParser(17, " div { margin: 10em; }");
+  expect(currentParser.parseUnit()).toEqual(Unit.Em);
+  expect(currentParser).toEqual(new CssParser(19, " div { margin: 10em; }"));
+});
