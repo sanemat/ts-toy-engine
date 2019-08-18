@@ -284,3 +284,77 @@ test("parse selectors 3", () => {
   ]);
   expect(currentParser).toEqual(new CssParser(10, "bana, nas { apples"));
 });
+
+// Examples:
+//
+// *               /* a=0 b=0 c=0 */
+// LI              /* a=0 b=0 c=1 */
+// UL LI           /* a=0 b=0 c=2 */
+// UL OL+LI        /* a=0 b=0 c=3 */
+// H1 + *[REL=up]  /* a=0 b=1 c=1 */
+// UL OL LI.red    /* a=0 b=1 c=3 */
+// LI.red.level    /* a=0 b=2 c=1 */
+// #x34y           /* a=1 b=0 c=0 */
+// #s12:not(FOO)   /* a=1 b=0 c=1 */
+// .foo :is(.bar, #baz)
+//                 /* a=1 b=1 c=0 */
+
+test("parse selectors 4 sorted 1", () => {
+  // 0,0,1 , 1,0,0
+  const currentParser = new CssParser(2, "  li, #x34y { apples");
+  expect(currentParser.parseSelectors()).toEqual([
+    new Selector.Simple(new SimpleSelector(null, "x34y", [])),
+    new Selector.Simple(new SimpleSelector("li", null, []))
+  ]);
+  expect(currentParser).toEqual(new CssParser(12, "  li, #x34y { apples"));
+});
+
+test("parse selectors 4 sorted 2", () => {
+  // 1,0,0 , 0,0,1
+  const currentParser = new CssParser(2, "  #x34y, li { apples");
+  expect(currentParser.parseSelectors()).toEqual([
+    new Selector.Simple(new SimpleSelector(null, "x34y", [])),
+    new Selector.Simple(new SimpleSelector("li", null, []))
+  ]);
+  expect(currentParser).toEqual(new CssParser(12, "  #x34y, li { apples"));
+});
+
+test("parse selectors 4 sorted 3", () => {
+  // 0,0,1 , 0,1,1
+  const currentParser = new CssParser(2, "  ul, li.red { apples");
+  expect(currentParser.parseSelectors()).toEqual([
+    new Selector.Simple(new SimpleSelector("li", null, ["red"])),
+    new Selector.Simple(new SimpleSelector("ul", null, []))
+  ]);
+  expect(currentParser).toEqual(new CssParser(13, "  ul, li.red { apples"));
+});
+
+test("parse selectors 4 sorted 4", () => {
+  // 0,1,1 , 0,0,1
+  const currentParser = new CssParser(2, "  li.red, ul { apples");
+  expect(currentParser.parseSelectors()).toEqual([
+    new Selector.Simple(new SimpleSelector("li", null, ["red"])),
+    new Selector.Simple(new SimpleSelector("ul", null, []))
+  ]);
+  expect(currentParser).toEqual(new CssParser(13, "  li.red, ul { apples"));
+});
+
+test("parse selectors 4 sorted 5", () => {
+  // 0,1,0 , 0,1,1
+  const currentParser = new CssParser(2, "  .dark, li.red { apples");
+  expect(currentParser.parseSelectors()).toEqual([
+    new Selector.Simple(new SimpleSelector("li", null, ["red"])),
+    new Selector.Simple(new SimpleSelector(null, null, ["dark"]))
+  ]);
+  expect(currentParser).toEqual(new CssParser(16, "  .dark, li.red { apples"));
+});
+
+test("parse selectors 4 sorted 6", () => {
+  // 0,1,1 , 0,1,0
+  const currentParser = new CssParser(2, "  li.red, .dark { apples");
+  expect(currentParser.parseSelectors()).toEqual([
+    new Selector.Simple(new SimpleSelector("li", null, ["red"])),
+    new Selector.Simple(new SimpleSelector(null, null, ["dark"]))
+  ]);
+  expect(currentParser).toEqual(new CssParser(16, "  li.red, .dark { apples"));
+});
