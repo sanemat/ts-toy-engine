@@ -253,6 +253,18 @@ export class CssParser {
       return 1;
     });
   }
+
+  parseUnit(): Unit {
+    const unit = this.parseIdentifier().toLowerCase();
+    switch (unit) {
+      case "em":
+        return Unit.Em;
+      case "px":
+        return Unit.Px;
+      default:
+        throw new Error(`unrecognized unit: ${unit}`);
+    }
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
