@@ -395,3 +395,9 @@ test("parse length 1", () => {
   expect(currentParser.parseLength()).toEqual(new CssValue.Length(10, Unit.Px));
   expect(currentParser).toEqual(new CssParser(19, " div { margin: 10px; }"));
 });
+
+test("parse hex pair 1", () => {
+  const currentParser = new CssParser(26, " div { background-color: #ffeedd; }");
+  expect(currentParser.parseHexPair()).toEqual(255);
+  expect(currentParser).toEqual(new CssParser(28, " div { background-color: #ffeedd; }"));
+});
