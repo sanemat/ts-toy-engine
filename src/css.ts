@@ -272,6 +272,10 @@ export class CssParser {
     });
     return Number(numberString);
   }
+
+  parseLength(): CssValue {
+    return new CssValue.Length(this.parseFloat(), this.parseUnit());
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
