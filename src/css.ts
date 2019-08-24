@@ -265,6 +265,13 @@ export class CssParser {
         throw new Error(`unrecognized unit: ${unit}`);
     }
   }
+
+  parseFloat(): number {
+    const numberString = this.consumeWhile((s: string) => {
+      return /[0-9\.]/.test(s);
+    });
+    return Number(numberString);
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {

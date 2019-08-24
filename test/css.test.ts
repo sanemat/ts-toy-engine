@@ -377,3 +377,15 @@ test("parse unit 3", () => {
   expect(currentParser.parseUnit()).toEqual(Unit.Em);
   expect(currentParser).toEqual(new CssParser(19, " div { margin: 10em; }"));
 });
+
+test("parse float 1", () => {
+  const currentParser = new CssParser(15, " div { margin: 10px; }");
+  expect(currentParser.parseFloat()).toEqual(10);
+  expect(currentParser).toEqual(new CssParser(17, " div { margin: 10px; }"));
+});
+
+test("parse float 2", () => {
+  const currentParser = new CssParser(15, " div { margin: 10.3px; }");
+  expect(currentParser.parseFloat()).toEqual(10.3);
+  expect(currentParser).toEqual(new CssParser(19, " div { margin: 10.3px; }"));
+});
