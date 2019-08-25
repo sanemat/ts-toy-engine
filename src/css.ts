@@ -302,6 +302,18 @@ export class CssParser {
       return new CssValue.Keyword(this.parseIdentifier());
     }
   }
+
+  // Parse one `<property>: <value>;` declaration.
+  parseDeclaration(): Declaration {
+    const propertyName = this.parseIdentifier();
+    this.consumeWhitespace();
+    assert(this.consumeChar() === ":");
+    this.consumeWhitespace();
+    const value = this.parseValue();
+    this.consumeWhitespace();
+    assert(this.consumeChar() === ";");
+    return new Declaration(propertyName, value);
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
