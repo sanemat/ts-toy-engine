@@ -329,6 +329,11 @@ export class CssParser {
     }
     return declarations;
   }
+
+  // Parse a rule set: `<selectors> { <declarations> }`.
+  parseRule(): Rule {
+    return new Rule(this.parseSelectors(), this.parseDeclarations());
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {

@@ -446,3 +446,20 @@ test("parse declarations 1", () => {
   ]);
   expect(currentParser).toEqual(new CssParser(37, " div { margin: 10px; display: none; }"));
 });
+
+test("parse rule 1", () => {
+  const currentParser = new CssParser(1, " div, span { margin: 10px; display: none; }");
+  expect(currentParser.parseRule()).toEqual(
+    new Rule(
+      [
+        new Selector.Simple(new SimpleSelector("div", null, [])),
+        new Selector.Simple(new SimpleSelector("span", null, []))
+      ],
+      [
+        new Declaration("margin", new CssValue.Length(10, Unit.Px)),
+        new Declaration("display", new CssValue.Keyword("none"))
+      ]
+    )
+  );
+  expect(currentParser).toEqual(new CssParser(43, " div, span { margin: 10px; display: none; }"));
+});
