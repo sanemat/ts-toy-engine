@@ -291,6 +291,17 @@ export class CssParser {
       new Color(this.parseHexPair(), this.parseHexPair(), this.parseHexPair(), 255)
     );
   }
+
+  parseValue(): CssValue {
+    const s = this.nextChar();
+    if (/[0-9]/.test(s)) {
+      return this.parseLength();
+    } else if (s === "#") {
+      return this.parseColor();
+    } else {
+      return new CssValue.Keyword(this.parseIdentifier());
+    }
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
