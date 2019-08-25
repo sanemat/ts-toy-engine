@@ -314,6 +314,21 @@ export class CssParser {
     assert(this.consumeChar() === ";");
     return new Declaration(propertyName, value);
   }
+
+  // Parse a list of declarations enclosed in `{ ... }`.
+  parseDeclarations(): Declaration[] {
+    assert(this.consumeChar() === "{");
+    const declarations: Declaration[] = [];
+    while (true) {
+      this.consumeWhitespace();
+      if (this.nextChar() === "}") {
+        this.consumeChar();
+        break;
+      }
+      declarations.push(this.parseDeclaration());
+    }
+    return declarations;
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
