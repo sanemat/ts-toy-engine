@@ -1,4 +1,4 @@
-// node_modules/.bin/ts-node example/toy-engine-cli.ts | display
+// node_modules/.bin/ts-node example/jimp.ts | display
 
 const Jimp = require("jimp");
 import { Canvas } from "../src/painting";
