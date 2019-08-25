@@ -276,6 +276,12 @@ export class CssParser {
   parseLength(): CssValue {
     return new CssValue.Length(this.parseFloat(), this.parseUnit());
   }
+
+  parseHexPair(): number {
+    const s = this.input.slice(this.pos, this.pos + 2);
+    this.pos += 2;
+    return parseInt(s, 16);
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
