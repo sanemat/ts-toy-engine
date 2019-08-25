@@ -352,3 +352,9 @@ export class CssParser {
 export function cssValidIdentifierChar(s: string): boolean {
   return /[0-9a-zA-Z_\-]/.test(s);
 }
+
+// Parse a whole CSS stylesheet.
+export function cssParse(s: string): Stylesheet {
+  const parser = new CssParser(0, s);
+  return new Stylesheet(parser.parseRules());
+}
