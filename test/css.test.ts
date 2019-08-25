@@ -409,3 +409,23 @@ test("parse color 1", () => {
   );
   expect(currentParser).toEqual(new CssParser(32, " div { background-color: #ffeedd; }"));
 });
+
+test("parse value 1", () => {
+  const currentParser = new CssParser(25, " div { background-color: #ffeedd; }");
+  expect(currentParser.parseValue()).toEqual(
+    new CssValue.ColorValue(new Color(255, 238, 221, 255))
+  );
+  expect(currentParser).toEqual(new CssParser(32, " div { background-color: #ffeedd; }"));
+});
+
+test("parse value 2", () => {
+  const currentParser = new CssParser(15, " div { margin: 10px; }");
+  expect(currentParser.parseValue()).toEqual(new CssValue.Length(10, Unit.Px));
+  expect(currentParser).toEqual(new CssParser(19, " div { margin: 10px; }"));
+});
+
+test("parse value 3", () => {
+  const currentParser = new CssParser(16, " div { display: none; }");
+  expect(currentParser.parseValue()).toEqual(new CssValue.Keyword("none"));
+  expect(currentParser).toEqual(new CssParser(20, " div { display: none; }"));
+});
