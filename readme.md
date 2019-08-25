@@ -10,6 +10,22 @@ node_modules/.bin/ts-node example/toy-engine.ts --css=example/color.css --html=e
 
 ![generated image](./example/result.png)
 
+```example/color.html
+<html>
+  <body>
+    <div class="outer">
+      <div class="inner"></div>
+    </div>
+  </body>
+</html>
+```
+
+```example/color.css
+* { display: block; padding: 12px; }
+.outer { background: #800000; }
+.inner { background: #0000ff; }
+```
+
 ## references
 
 - [Let's build a browser engine! Part 1: Getting started](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)
