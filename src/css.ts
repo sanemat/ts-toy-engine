@@ -334,6 +334,19 @@ export class CssParser {
   parseRule(): Rule {
     return new Rule(this.parseSelectors(), this.parseDeclarations());
   }
+
+  // Parse a list of rule sets, separated by optional whitespace.
+  parseRules(): Rule[] {
+    const rules: Rule[] = [];
+    while (true) {
+      this.consumeWhitespace();
+      if (this.eof()) {
+        break;
+      }
+      rules.push(this.parseRule());
+    }
+    return rules;
+  }
 }
 
 export function cssValidIdentifierChar(s: string): boolean {
