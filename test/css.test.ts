@@ -1,5 +1,6 @@
 import {
   Color,
+  cssParse,
   CssParser,
   cssValidIdentifierChar,
   CssValue,
@@ -481,4 +482,23 @@ test("parse rules 1", () => {
     )
   ]);
   expect(currentParser).toEqual(new CssParser(56, input));
+});
+
+test("css parse 1", () => {
+  const input = `
+   div { margin: 10px; }
+   span { display: none; }
+   `;
+  expect(cssParse(input)).toEqual(
+    new Stylesheet([
+      new Rule(
+        [new Selector.Simple(new SimpleSelector("div", null, []))],
+        [new Declaration("margin", new CssValue.Length(10, Unit.Px))]
+      ),
+      new Rule(
+        [new Selector.Simple(new SimpleSelector("span", null, []))],
+        [new Declaration("display", new CssValue.Keyword("none"))]
+      )
+    ])
+  );
 });
