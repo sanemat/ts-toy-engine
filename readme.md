@@ -33,7 +33,7 @@ node_modules/.bin/ts-node example/toy-engine.ts --css=example/color.css --html=e
 
 ## Pipeline
 
-Understand this rendering pipeline <img src="https://limpet.net/mbrubeck/images/2014/pipeline.svg"> https://limpet.net/mbrubeck/images/2014/pipeline.svg .
+Understand this rendering pipeline ![pipeline](./example/pipeline.svg) https://limpet.net/mbrubeck/images/2014/pipeline.svg .
 
 Input html and css, then output pixels.
 
