@@ -401,3 +401,11 @@ test("parse hex pair 1", () => {
   expect(currentParser.parseHexPair()).toEqual(255);
   expect(currentParser).toEqual(new CssParser(28, " div { background-color: #ffeedd; }"));
 });
+
+test("parse color 1", () => {
+  const currentParser = new CssParser(25, " div { background-color: #ffeedd; }");
+  expect(currentParser.parseColor()).toEqual(
+    new CssValue.ColorValue(new Color(255, 238, 221, 255))
+  );
+  expect(currentParser).toEqual(new CssParser(32, " div { background-color: #ffeedd; }"));
+});

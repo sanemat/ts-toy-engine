@@ -1,3 +1,5 @@
+import * as assert from "assert";
+
 const isWhitespace = require("is-whitespace-character");
 
 export class Color {
@@ -281,6 +283,13 @@ export class CssParser {
     const s = this.input.slice(this.pos, this.pos + 2);
     this.pos += 2;
     return parseInt(s, 16);
+  }
+
+  parseColor(): CssValue {
+    assert(this.consumeChar() === "#");
+    return new CssValue.ColorValue(
+      new Color(this.parseHexPair(), this.parseHexPair(), this.parseHexPair(), 255)
+    );
   }
 }
 
