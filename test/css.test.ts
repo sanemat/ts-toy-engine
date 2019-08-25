@@ -429,3 +429,11 @@ test("parse value 3", () => {
   expect(currentParser.parseValue()).toEqual(new CssValue.Keyword("none"));
   expect(currentParser).toEqual(new CssParser(20, " div { display: none; }"));
 });
+
+test("parse declaration 1", () => {
+  const currentParser = new CssParser(7, " div { margin: 10px; }");
+  expect(currentParser.parseDeclaration()).toEqual(
+    new Declaration("margin", new CssValue.Length(10, Unit.Px))
+  );
+  expect(currentParser).toEqual(new CssParser(20, " div { margin: 10px; }"));
+});
